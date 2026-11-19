@@ -2,25 +2,33 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#120824">
     <title>BTS & BIGHIT MUSIC - Portal</title>
     <link rel="icon" type="image/png" href="./img/icon.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- CURSORES PERSONALIZADOS -->
+    <!-- CURSORES PERSONALIZADOS (DESKTOP) -->
     <img src="./img/pointer.png" alt="Cursor BTS" class="cursor-ponto">
     <img src="./img/tanque.gif" alt="Cursor animado" id="gif-cursor">
 
     <!-- MENU DE NAVEGAÇÃO -->
     <header class="inicio" id="topo">
         <nav class="navbar">
-            <a href="#topo">
+            <a href="#topo" class="logo-link">
                 <img id="bighit" src="./img/logo.png" alt="Logo BIGHIT MUSIC" title="BIGHIT MUSIC">
             </a>
-            <ul class="navegaMenu">
-                <li><a href="#topo">Home</a></li>
+
+            <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Abrir menu de navegação" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="navegaMenu" id="navega-menu">
+                <li><a href="#topo" class="menu-ativo">Home</a></li>
                 <li><a href="#sobre">Quem somos</a></li>
                 <li><a href="#integrantes">Integrantes</a></li>
                 <li><a href="#historia">Sobre o BTS</a></li>
@@ -55,7 +63,7 @@
             <h1>Quem Somos</h1>
 
             <div class="sobre-card">
-                <div class="sobre-logo-box" id="sobre-logo" title="Clique para alternar o lema">
+                <div class="sobre-logo-box" id="sobre-logo" title="Toque para alternar o lema">
                     <img src="./img/logo.png" alt="Logo oficial BIGHIT MUSIC">
                 </div>
 
@@ -93,14 +101,14 @@
         <!-- SEÇÃO INTEGRANTES DO BTS -->
         <section class="secao-integrantes" id="integrantes">
             <h1>Integrantes do BTS</h1>
-            <p class="integrantes-intro">Passe o mouse ou clique nos cards para interagir com os sete integrantes do grupo.</p>
+            <p class="integrantes-intro">Toque ou passe o cursor nos cards para interagir com os sete integrantes do grupo.</p>
 
             <div class="integrantes-grid">
                 <!-- RM -->
                 <article class="integrante-card revelar" data-fanchant="Kim Namjoon! 💜">
                     <div class="card-reflexo"></div>
                     <div class="integrante-foto">
-                        <img src="./img/rm.jpg" alt="RM - Kim Namjoon">
+                        <img src="./img/rm.jpg" alt="RM - Kim Namjoon" loading="lazy">
                     </div>
                     <div class="integrante-info">
                         <span class="integrante-cargo">Líder • Rapper</span>
@@ -114,7 +122,7 @@
                 <article class="integrante-card revelar" data-fanchant="Kim Seokjin! 💜">
                     <div class="card-reflexo"></div>
                     <div class="integrante-foto">
-                        <img src="./img/jin.jpg" alt="Jin - Kim Seokjin">
+                        <img src="./img/jin.jpg" alt="Jin - Kim Seokjin" loading="lazy">
                     </div>
                     <div class="integrante-info">
                         <span class="integrante-cargo">Vocalista • Visual</span>
@@ -128,7 +136,7 @@
                 <article class="integrante-card revelar" data-fanchant="Min Yoongi! 💜">
                     <div class="card-reflexo"></div>
                     <div class="integrante-foto">
-                        <img src="./img/suga.jpg" alt="SUGA - Min Yoongi">
+                        <img src="./img/suga.jpg" alt="SUGA - Min Yoongi" loading="lazy">
                     </div>
                     <div class="integrante-info">
                         <span class="integrante-cargo">Rapper • Produtor</span>
@@ -142,7 +150,7 @@
                 <article class="integrante-card revelar" data-fanchant="Jung Hoseok! 💜">
                     <div class="card-reflexo"></div>
                     <div class="integrante-foto">
-                        <img src="./img/hope.jpg" alt="j-hope - Jung Hoseok">
+                        <img src="./img/hope.jpg" alt="j-hope - Jung Hoseok" loading="lazy">
                     </div>
                     <div class="integrante-info">
                         <span class="integrante-cargo">Rapper • Dançarino Principal</span>
@@ -156,7 +164,7 @@
                 <article class="integrante-card revelar" data-fanchant="Park Jimin! 💜">
                     <div class="card-reflexo"></div>
                     <div class="integrante-foto">
-                        <img src="./img/jimin.jpg" alt="Jimin - Park Jimin">
+                        <img src="./img/jimin.jpg" alt="Jimin - Park Jimin" loading="lazy">
                     </div>
                     <div class="integrante-info">
                         <span class="integrante-cargo">Vocalista • Dançarino Principal</span>
@@ -170,7 +178,7 @@
                 <article class="integrante-card revelar" data-fanchant="Kim Taehyung! 💜">
                     <div class="card-reflexo"></div>
                     <div class="integrante-foto">
-                        <img src="./img/v.jpg" alt="V - Kim Taehyung">
+                        <img src="./img/v.jpg" alt="V - Kim Taehyung" loading="lazy">
                     </div>
                     <div class="integrante-info">
                         <span class="integrante-cargo">Vocalista • Visual</span>
@@ -184,7 +192,7 @@
                 <article class="integrante-card revelar" data-fanchant="Jeon Jungkook! 💜">
                     <div class="card-reflexo"></div>
                     <div class="integrante-foto">
-                        <img src="./img/jk.jpg" alt="Jung Kook - Jeon Jungkook">
+                        <img src="./img/jk.jpg" alt="Jung Kook - Jeon Jungkook" loading="lazy">
                     </div>
                     <div class="integrante-info">
                         <span class="integrante-cargo">Vocalista Principal • Maknae</span>
@@ -209,19 +217,19 @@
                     O BTS estreou em 2013 pela Big Hit Entertainment com o single álbum <em>2 Cool 4 Skool</em>. Em 2014, o grupo lançou seus primeiros álbuns de estúdio em coreano e em japonês, <em>Dark &amp; Wild</em> e <em>Wake Up</em>, respectivamente.
                 </p>
 
-                <!-- SLIDESHOW DE IMAGENS DA BIOGRAFIA (IGUAL AO BANNER PRINCIPAL, SEM SETAS) -->
+                <!-- SLIDESHOW DE IMAGENS DA BIOGRAFIA -->
                 <div class="banner-moldura bio-slideshow" id="bio-slideshow">
                     <div class="slideshow-wrapper">
-                        <img src="./img/old01.jpg" alt="BTS Foto Histórica 01" class="slide bio-slide ativo">
-                        <img src="./img/old02.jpg" alt="BTS Foto Histórica 02" class="slide bio-slide">
-                        <img src="./img/old03.jpg" alt="BTS Foto Histórica 03" class="slide bio-slide">
-                        <img src="./img/old04.jpg" alt="BTS Foto Histórica 04" class="slide bio-slide">
-                        <img src="./img/old05.jpg" alt="BTS Foto Histórica 05" class="slide bio-slide">
-                        <img src="./img/old06.jpg" alt="BTS Foto Histórica 06" class="slide bio-slide">
-                        <img src="./img/old07.jpg" alt="BTS Foto Histórica 07" class="slide bio-slide">
-                        <img src="./img/old08.jpg" alt="BTS Foto Histórica 08" class="slide bio-slide">
-                        <img src="./img/old09.jpg" alt="BTS Foto Histórica 09" class="slide bio-slide">
-                        <img src="./img/old10.jpg" alt="BTS Foto Histórica 10" class="slide bio-slide">
+                        <img src="./img/old01.jpg" alt="BTS Foto Histórica 01" class="slide bio-slide ativo" loading="lazy">
+                        <img src="./img/old02.jpg" alt="BTS Foto Histórica 02" class="slide bio-slide" loading="lazy">
+                        <img src="./img/old03.jpg" alt="BTS Foto Histórica 03" class="slide bio-slide" loading="lazy">
+                        <img src="./img/old04.jpg" alt="BTS Foto Histórica 04" class="slide bio-slide" loading="lazy">
+                        <img src="./img/old05.jpg" alt="BTS Foto Histórica 05" class="slide bio-slide" loading="lazy">
+                        <img src="./img/old06.jpg" alt="BTS Foto Histórica 06" class="slide bio-slide" loading="lazy">
+                        <img src="./img/old07.jpg" alt="BTS Foto Histórica 07" class="slide bio-slide" loading="lazy">
+                        <img src="./img/old08.jpg" alt="BTS Foto Histórica 08" class="slide bio-slide" loading="lazy">
+                        <img src="./img/old09.jpg" alt="BTS Foto Histórica 09" class="slide bio-slide" loading="lazy">
+                        <img src="./img/old10.jpg" alt="BTS Foto Histórica 10" class="slide bio-slide" loading="lazy">
                     </div>
 
                     <div class="banner-legenda">
@@ -263,11 +271,13 @@
                         <span class="player-selo">BTS • ARIRANG TRACKLIST</span>
                         <h2 id="faixa-atual-titulo">01 - Body to Body</h2>
 
-                        <!-- Barra de Progresso -->
+                        <!-- Barra de Progresso com área de toque ampliada -->
                         <div class="progresso-wrapper">
                             <span id="tempo-atual">00:00</span>
-                            <div class="barra-progresso-fundo" id="barra-progresso-fundo">
-                                <div class="barra-progresso-preenchida" id="barra-progresso-preenchida"></div>
+                            <div class="progresso-touch-area" id="barra-progresso-fundo" role="slider" aria-label="Progresso da música">
+                                <div class="barra-progresso-trilha">
+                                    <div class="barra-progresso-preenchida" id="barra-progresso-preenchida"></div>
+                                </div>
                             </div>
                             <span id="tempo-total">03:09</span>
                         </div>
@@ -285,7 +295,7 @@
                             </div>
                         </div>
 
-                        <p class="player-status" id="player-status">Clique em play ou selecione uma faixa na lista abaixo.</p>
+                        <p class="player-status" id="player-status">Toque em play ou selecione uma faixa na lista abaixo.</p>
                     </div>
                 </div>
 

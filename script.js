@@ -1,5 +1,6 @@
 const cursorPonto = document.querySelector('.cursor-ponto');
 const gifCursor = document.getElementById('gif-cursor');
+const isDispositivoTouch = window.matchMedia('(pointer: coarse)').matches;
 
 let mouseX = 0;
 let mouseY = 0;
@@ -38,81 +39,78 @@ function criarBrilho(x, y) {
     }, 900);
 }
 
-// Movimento do mouse: atualiza ícone e solta brilhos
-window.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
+// Cursor animado apenas em dispositivos com mouse (economiza bateria no celular)
+if (!isDispositivoTouch) {
+    window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
 
-    if (cursorPonto) {
-        cursorPonto.style.left = `${mouseX}px`;
-        cursorPonto.style.top = `${mouseY}px`;
+        if (cursorPonto) {
+            cursorPonto.style.left = `${mouseX}px`;
+            cursorPonto.style.top = `${mouseY}px`;
+        }
+
+        if (Math.random() < 0.35) {
+            criarBrilho(mouseX, mouseY);
+        }
+    });
+
+    function animarCursor() {
+        if (gifCursor) {
+            const alvoX = mouseX + offsetX;
+            const alvoY = mouseY + offsetY;
+
+            tanqueX += (alvoX - tanqueX) * 0.12;
+            tanqueY += (alvoY - tanqueY) * 0.12;
+
+            gifCursor.style.left = `${tanqueX}px`;
+            gifCursor.style.top = `${tanqueY}px`;
+        }
+
+        requestAnimationFrame(animarCursor);
     }
 
-    if (Math.random() < 0.35) {
-        criarBrilho(mouseX, mouseY);
-    }
-});
+    animarCursor();
+}
 
-// Explosão de brilhos ao clicar em qualquer lugar
+// Explosão de brilhos ao tocar ou clicar
 window.addEventListener('click', (e) => {
-    for (let i = 0; i < 12; i++) {
+    const qtdBrilhos = isDispositivoTouch ? 6 : 12;
+    for (let i = 0; i < qtdBrilhos; i++) {
         criarBrilho(e.clientX, e.clientY);
     }
 });
 
-// Movimento suave com atraso para o tanque
-function animarCursor() {
-    if (gifCursor) {
-        const alvoX = mouseX + offsetX;
-        const alvoY = mouseY + offsetY;
-
-        tanqueX += (alvoX - tanqueX) * 0.12;
-        tanqueY += (alvoY - tanqueY) * 0.12;
-
-        gifCursor.style.left = `${tanqueX}px`;
-        gifCursor.style.top = `${tanqueY}px`;
-    }
-
-    requestAnimationFrame(animarCursor);
-}
-
-animarCursor();
-
 // ==========================================
-// 1. SLIDESHOW AUTOMÁTICO DO BANNER PRINCIPAL (6.5s)
-// ==========================================
-const slides = document.querySelectorAll('#banner-card .slide');
-const indicadoresContainer = document.getElementById('slide-indicadores');
-
-let slideAtual = 0;
-
-if (slides.length > 0 && indicadoresContainer) {
-    slides.forEach((_, index) => {
-        const dot = document.createElement('span');
-        dot.classList.add('dot');
-        if (index === 0) dot.classList.add('ativo');
-        indicadoresContainer.appendChild(dot);
-    });
-
-    const dots = indicadoresContainer.querySelectorAll('.dot');
-
-    function proximoSlide() {
-        slides[slideAtual].classList.remove('ativo');
-        dots[slideAtual].classList.remove('ativo');
-
-        slideAtual = (slideAtual + 1) % slides.length;
-
-        slides[slideAtual].classList.add('ativo');
-        dots[slideAtual].classList.add('ativo');
-    }
-
-    setInterval(proximoSlide, 6500);
-}
-
-// ==========================================
-// 2. SOMBRA NA NAVBAR E ROLAGEM PARA O TÍTULO
+// 1. MENU HAMBÚRGUER MOBILE E NAVEGAÇÃO SUAVE
 // ==========================================
 const header = document.querySelector('.inicio');
+const menuToggle = document.getElementById('menu-toggle');
+const navegaMenu = document.getElementById('navega-menu');
+const linksMenu = document.querySelectorAll('.navegaMenu a[href^="#"]');
+
+function fecharMenuMobile() {
+    if (!menuToggle || !navegaMenu) return;
+    menuToggle.classList.remove('aberto');
+    navegaMenu.classList.remove('aberto');
+    menuToggle.setAttribute('aria-expanded', 'false');
+}
+
+if (menuToggle && navegaMenu) {
+    menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const aberto = navegaMenu.classList.toggle('aberto');
+        menuToggle.classList.toggle('aberto', aberto);
+        menuToggle.setAttribute('aria-expanded', String(aberto));
+    });
+
+    document.addEventListener('click', (e) => {
+        if (navegaMenu.classList.contains('aberto') && !header.contains(e.target)) {
+            fecharMenuMobile();
+        }
+    });
+}
+
 if (header) {
     window.addEventListener('scroll', () => {
         if (window.scrollY > 20) {
@@ -120,19 +118,21 @@ if (header) {
         } else {
             header.classList.remove('rolando');
         }
-    });
+    }, { passive: true });
 }
 
-document.querySelectorAll('.navegaMenu a[href^="#"]').forEach((link) => {
+linksMenu.forEach((link) => {
     link.addEventListener('click', (e) => {
         const destinoId = link.getAttribute('href');
         const secaoDestino = document.querySelector(destinoId);
 
+        fecharMenuMobile();
+
         if (secaoDestino) {
             e.preventDefault();
             const tituloAlvo = secaoDestino.querySelector('h1') || secaoDestino;
-            const alturaNavbar = header ? header.offsetHeight : 80;
-            const posicaoTopo = tituloAlvo.getBoundingClientRect().top + window.scrollY - alturaNavbar - 18;
+            const alturaNavbar = header ? header.offsetHeight : 72;
+            const posicaoTopo = tituloAlvo.getBoundingClientRect().top + window.scrollY - alturaNavbar - 16;
 
             window.scrollTo({
                 top: Math.max(0, posicaoTopo),
@@ -142,11 +142,92 @@ document.querySelectorAll('.navegaMenu a[href^="#"]').forEach((link) => {
     });
 });
 
+// Destaca automaticamente a seção atual no menu ao rolar
+const secoesSpy = ['topo', 'sobre', 'integrantes', 'historia', 'musicas']
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
+
+window.addEventListener('scroll', () => {
+    const posScroll = window.scrollY + (header ? header.offsetHeight : 80) + 60;
+    let idAtivo = 'topo';
+
+    secoesSpy.forEach((sec) => {
+        if (posScroll >= sec.offsetTop) {
+            idAtivo = sec.id;
+        }
+    });
+
+    linksMenu.forEach((link) => {
+        link.classList.toggle('menu-ativo', link.getAttribute('href') === `#${idAtivo}`);
+    });
+}, { passive: true });
+
 // ==========================================
-// 3. INCLINAÇÃO 3D SUAVE NOS BANNERS (PRINCIPAL E BIOGRAFIA)
+// 2. FUNÇÃO UNIFICADA DE SLIDESHOW (AUTOMÁTICO + SWIPE TOUCH)
+// ==========================================
+function iniciarSlideshow(containerId, seletorSlides, indicadoresId, intervaloMs) {
+    const container = document.getElementById(containerId);
+    const listaSlides = document.querySelectorAll(seletorSlides);
+    const indicadores = document.getElementById(indicadoresId);
+
+    if (!container || listaSlides.length === 0 || !indicadores) return;
+
+    let indiceAtual = 0;
+    let timer = null;
+
+    listaSlides.forEach((_, index) => {
+        const dot = document.createElement('span');
+        dot.classList.add('dot');
+        if (index === 0) dot.classList.add('ativo');
+        indicadores.appendChild(dot);
+    });
+
+    const dots = indicadores.querySelectorAll('.dot');
+
+    function irParaSlide(novoIndice) {
+        listaSlides[indiceAtual].classList.remove('ativo');
+        dots[indiceAtual].classList.remove('ativo');
+
+        indiceAtual = (novoIndice + listaSlides.length) % listaSlides.length;
+
+        listaSlides[indiceAtual].classList.add('ativo');
+        dots[indiceAtual].classList.add('ativo');
+    }
+
+    function iniciarAuto() {
+        clearInterval(timer);
+        timer = setInterval(() => irParaSlide(indiceAtual + 1), intervaloMs);
+    }
+
+    // Suporte a deslizar o dedo (swipe) no celular
+    let toqueInicioX = 0;
+    container.addEventListener('touchstart', (e) => {
+        toqueInicioX = e.changedTouches[0].clientX;
+    }, { passive: true });
+
+    container.addEventListener('touchend', (e) => {
+        const deltaX = e.changedTouches[0].clientX - toqueInicioX;
+        if (Math.abs(deltaX) > 40) {
+            if (deltaX < 0) {
+                irParaSlide(indiceAtual + 1);
+            } else {
+                irParaSlide(indiceAtual - 1);
+            }
+            iniciarAuto();
+        }
+    }, { passive: true });
+
+    iniciarAuto();
+}
+
+iniciarSlideshow('banner-card', '#banner-card .slide', 'slide-indicadores', 6500);
+iniciarSlideshow('bio-slideshow', '#bio-slideshow .bio-slide', 'bio-indicadores', 7000);
+
+// ==========================================
+// 3. INCLINAÇÃO 3D SUAVE NOS BANNERS (APENAS DESKTOP)
 // ==========================================
 function aplicarInclinacao3D(elemento) {
-    if (!elemento) return;
+    if (!elemento || isDispositivoTouch) return;
 
     elemento.addEventListener('mousemove', (e) => {
         const rect = elemento.getBoundingClientRect();
@@ -188,7 +269,7 @@ if (secaoSobre && contadorAno) {
                 }
             }, 45);
         }
-    }, { threshold: 0.3 });
+    }, { threshold: 0.25 });
 
     obsAno.observe(secaoSobre);
 }
@@ -208,7 +289,7 @@ if (sobreLogo && sobreLema) {
         void sobreLogo.offsetWidth;
         sobreLogo.classList.add('girar');
 
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < (isDispositivoTouch ? 5 : 10); i++) {
             criarBrilho(e.clientX, e.clientY);
         }
     });
@@ -226,7 +307,7 @@ if (itensDestaque.length > 0 && detalheDestaque) {
                 detalheDestaque.style.opacity = '1';
             }, 150);
 
-            for (let i = 0; i < 8; i++) {
+            for (let i = 0; i < (isDispositivoTouch ? 4 : 8); i++) {
                 criarBrilho(e.clientX, e.clientY);
             }
         });
@@ -239,31 +320,34 @@ if (itensDestaque.length > 0 && detalheDestaque) {
 const cardsIntegrantes = document.querySelectorAll('.integrante-card');
 
 cardsIntegrantes.forEach((card, index) => {
-    card.style.transitionDelay = `${index * 90}ms`;
+    card.style.transitionDelay = `${index * 80}ms`;
 
     const reflexo = card.querySelector('.card-reflexo');
 
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+    if (!isDispositivoTouch) {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
 
-        const rotateY = ((x / rect.width) - 0.5) * 14;
-        const rotateX = -((y / rect.height) - 0.5) * 14;
+            const rotateY = ((x / rect.width) - 0.5) * 14;
+            const rotateX = -((y / rect.height) - 0.5) * 14;
 
-        card.style.transitionDelay = '0ms';
-        card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+            card.style.transitionDelay = '0ms';
+            card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
 
-        if (reflexo) {
-            reflexo.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(224, 170, 255, 0.35), transparent 65%)`;
-        }
-    });
+            if (reflexo) {
+                reflexo.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(224, 170, 255, 0.35), transparent 65%)`;
+            }
+        });
 
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0)';
-    });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0)';
+        });
+    }
 
     card.addEventListener('click', (e) => {
+        card.style.transitionDelay = '0ms';
         card.classList.remove('pulsando');
         void card.offsetWidth;
         card.classList.add('pulsando');
@@ -273,8 +357,14 @@ cardsIntegrantes.forEach((card, index) => {
             const etiqueta = document.createElement('span');
             etiqueta.classList.add('fanchant-flutuante');
             etiqueta.textContent = textoFanchant;
-            etiqueta.style.left = `${e.clientX}px`;
-            etiqueta.style.top = `${e.clientY}px`;
+
+            // Impede que o balão seja cortado nas bordas da tela do celular
+            const margemSegura = 95;
+            const posX = Math.min(Math.max(e.clientX, margemSegura), window.innerWidth - margemSegura);
+            const posY = Math.max(e.clientY, 70);
+
+            etiqueta.style.left = `${posX}px`;
+            etiqueta.style.top = `${posY}px`;
             document.body.appendChild(etiqueta);
 
             setTimeout(() => {
@@ -282,47 +372,17 @@ cardsIntegrantes.forEach((card, index) => {
             }, 1100);
         }
 
-        for (let i = 0; i < 18; i++) {
+        for (let i = 0; i < (isDispositivoTouch ? 8 : 18); i++) {
             criarBrilho(e.clientX, e.clientY);
         }
     });
 });
 
 // ==========================================
-// 6. SLIDESHOW AUTOMÁTICO DA BIOGRAFIA (IGUAL AO BANNER PRINCIPAL, 7s)
-// ==========================================
-const bioSlides = document.querySelectorAll('#bio-slideshow .bio-slide');
-const bioIndicadores = document.getElementById('bio-indicadores');
-
-let bioSlideAtual = 0;
-
-if (bioSlides.length > 0 && bioIndicadores) {
-    bioSlides.forEach((_, index) => {
-        const dot = document.createElement('span');
-        dot.classList.add('dot');
-        if (index === 0) dot.classList.add('ativo');
-        bioIndicadores.appendChild(dot);
-    });
-
-    const bioDots = bioIndicadores.querySelectorAll('.dot');
-
-    function proximoBioSlide() {
-        bioSlides[bioSlideAtual].classList.remove('ativo');
-        bioDots[bioSlideAtual].classList.remove('ativo');
-
-        bioSlideAtual = (bioSlideAtual + 1) % bioSlides.length;
-
-        bioSlides[bioSlideAtual].classList.add('ativo');
-        bioDots[bioSlideAtual].classList.add('ativo');
-    }
-
-    setInterval(proximoBioSlide, 7000);
-}
-
-// ==========================================
-// 7. PLAYER EMBUTIDO DE MÚSICAS DO ARIRANG
+// 6. PLAYER EMBUTIDO DE MÚSICAS DO ARIRANG
 // ==========================================
 const audioPlayer = document.getElementById('audio-player');
+const listaFaixasContainer = document.getElementById('lista-faixas');
 const itensFaixa = document.querySelectorAll('.faixa-item');
 const btnPlayPause = document.getElementById('btn-play-pause');
 const btnFaixaAnterior = document.getElementById('btn-faixa-anterior');
@@ -357,6 +417,15 @@ if (audioPlayer && itensFaixa.length > 0) {
         if (equalizador) equalizador.classList.toggle('tocando', tocando);
     }
 
+    function rolarPlaylistParaFaixa(item) {
+        if (!listaFaixasContainer || !item) return;
+        const topoAlvo = item.offsetTop - listaFaixasContainer.offsetTop - (listaFaixasContainer.clientHeight / 2) + (item.clientHeight / 2);
+        listaFaixasContainer.scrollTo({
+            top: Math.max(0, topoAlvo),
+            behavior: 'smooth'
+        });
+    }
+
     function carregarFaixa(indice, tocarAutomaticamente = false) {
         indiceFaixaAtual = (indice + itensFaixa.length) % itensFaixa.length;
 
@@ -377,6 +446,7 @@ if (audioPlayer && itensFaixa.length > 0) {
         }
 
         if (tocarAutomaticamente) {
+            rolarPlaylistParaFaixa(itemSelecionado);
             audioPlayer.play()
                 .then(() => {
                     atualizarVisualTocando(true);
@@ -404,7 +474,7 @@ if (audioPlayer && itensFaixa.length > 0) {
                 .then(() => {
                     atualizarVisualTocando(true);
                     if (statusPlayer) statusPlayer.textContent = `💜 Tocando agora: ${titulo}`;
-                    for (let i = 0; i < 12; i++) criarBrilho(e.clientX, e.clientY);
+                    for (let i = 0; i < (isDispositivoTouch ? 6 : 12); i++) criarBrilho(e.clientX, e.clientY);
                 })
                 .catch(() => {
                     atualizarVisualTocando(false);
@@ -439,7 +509,7 @@ if (audioPlayer && itensFaixa.length > 0) {
     itensFaixa.forEach((item, index) => {
         item.addEventListener('click', (e) => {
             carregarFaixa(index, true);
-            for (let i = 0; i < 10; i++) criarBrilho(e.clientX, e.clientY);
+            for (let i = 0; i < (isDispositivoTouch ? 5 : 10); i++) criarBrilho(e.clientX, e.clientY);
         });
     });
 
@@ -471,13 +541,26 @@ if (audioPlayer && itensFaixa.length > 0) {
         }
     });
 
+    // Busca na barra de progresso por clique ou arrasto com o dedo
     if (barraProgressoFundo) {
-        barraProgressoFundo.addEventListener('click', (e) => {
+        const atualizarTempoPorPosicao = (clientX) => {
             if (!audioPlayer.duration) return;
             const rect = barraProgressoFundo.getBoundingClientRect();
-            const cliqueX = e.clientX - rect.left;
-            audioPlayer.currentTime = (cliqueX / rect.width) * audioPlayer.duration;
+            const proporcao = Math.min(Math.max((clientX - rect.left) / rect.width, 0), 1);
+            audioPlayer.currentTime = proporcao * audioPlayer.duration;
+        };
+
+        barraProgressoFundo.addEventListener('click', (e) => {
+            atualizarTempoPorPosicao(e.clientX);
         });
+
+        barraProgressoFundo.addEventListener('touchstart', (e) => {
+            atualizarTempoPorPosicao(e.touches[0].clientX);
+        }, { passive: true });
+
+        barraProgressoFundo.addEventListener('touchmove', (e) => {
+            atualizarTempoPorPosicao(e.touches[0].clientX);
+        }, { passive: true });
     }
 
     if (controleVolume) {
@@ -488,7 +571,7 @@ if (audioPlayer && itensFaixa.length > 0) {
 }
 
 // ==========================================
-// 8. ANIMAÇÃO DE APARIÇÃO AO ROLAR (SCROLL REVEAL)
+// 7. ANIMAÇÃO DE APARIÇÃO AO ROLAR (SCROLL REVEAL)
 // ==========================================
 const elementosRevelar = document.querySelectorAll('.revelar');
 const observador = new IntersectionObserver((entradas) => {
@@ -497,6 +580,6 @@ const observador = new IntersectionObserver((entradas) => {
             entrada.target.classList.add('visivel');
         }
     });
-}, { threshold: 0.12 });
+}, { threshold: 0.1 });
 
 elementosRevelar.forEach((el) => observador.observe(el));

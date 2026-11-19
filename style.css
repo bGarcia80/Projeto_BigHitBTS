@@ -3,10 +3,12 @@
     padding: 0px;
     box-sizing: border-box;
     cursor: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 body {
@@ -15,6 +17,7 @@ body {
     font-family: 'Segoe UI', 'Trebuchet MS', Arial, sans-serif;
     overflow-x: hidden;
     min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
 }
@@ -29,7 +32,7 @@ main {
 #integrantes,
 #historia,
 #musicas {
-    scroll-margin-top: 105px;
+    scroll-margin-top: 95px;
 }
 
 /* NAVBAR */
@@ -39,6 +42,7 @@ main {
     top: 0;
     z-index: 1000;
     border-bottom: 4px solid #7b2cbf;
+    padding-top: env(safe-area-inset-top);
     transition: box-shadow 0.3s ease;
 }
 
@@ -53,8 +57,13 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
+    position: relative;
     gap: 15px;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
 }
 
 #bighit {
@@ -66,6 +75,54 @@ main {
 
 #bighit:hover {
     transform: scale(1.04);
+}
+
+/* BOTÃO HAMBÚRGUER (OCULTO NO DESKTOP) */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    border: 2px solid #7b2cbf;
+    background-color: #ffffff;
+    transition: background-color 0.25s ease, transform 0.15s ease;
+}
+
+.menu-toggle:active {
+    transform: scale(0.94);
+}
+
+.menu-toggle span {
+    display: block;
+    width: 22px;
+    height: 3px;
+    border-radius: 3px;
+    background-color: #180c2e;
+    transition: transform 0.3s ease, opacity 0.25s ease, background-color 0.25s ease;
+}
+
+.menu-toggle.aberto {
+    background-color: #7b2cbf;
+}
+
+.menu-toggle.aberto span {
+    background-color: #ffffff;
+}
+
+.menu-toggle.aberto span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.menu-toggle.aberto span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.aberto span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
 }
 
 .navegaMenu {
@@ -84,6 +141,7 @@ main {
     font-weight: 700;
     padding: 8px 14px;
     border-radius: 8px;
+    display: block;
     transition: background-color 0.25s, color 0.25s;
 }
 
@@ -107,6 +165,7 @@ main {
     border: 2px solid rgba(199, 125, 255, 0.45);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(157, 78, 221, 0.35);
     transition: transform 0.2s ease-out, box-shadow 0.3s ease;
+    touch-action: pan-y;
 }
 
 .bio-slideshow {
@@ -116,7 +175,7 @@ main {
 .slideshow-wrapper {
     position: relative;
     width: 100%;
-    height: 470px;
+    height: clamp(220px, 52vw, 470px);
     background-color: #0b0417;
 }
 
@@ -168,29 +227,29 @@ main {
 }
 
 .banner-legenda h2 {
-    font-size: 1.6rem;
+    font-size: clamp(1.15rem, 3.2vw, 1.6rem);
     color: #ffffff;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
 }
 
 .slide-indicadores {
     display: flex;
-    gap: 8px;
+    gap: 7px;
     align-items: center;
     pointer-events: none;
 }
 
 .dot {
     display: inline-block;
-    width: 11px;
-    height: 11px;
+    width: 10px;
+    height: 10px;
     border-radius: 999px;
     background-color: rgba(255, 255, 255, 0.4);
     transition: width 0.3s ease, background-color 0.3s ease;
 }
 
 .dot.ativo {
-    width: 28px;
+    width: 24px;
     background-color: #c77dff;
     box-shadow: 0 0 10px #c77dff;
 }
@@ -200,7 +259,7 @@ main {
 .secao-integrantes h1,
 .secao-historia h1,
 .secao-musicas h1 {
-    font-size: 2.5rem;
+    font-size: clamp(1.85rem, 4.5vw, 2.5rem);
     color: #ffffff;
     font-family: 'Trebuchet MS', sans-serif;
     font-weight: 900;
@@ -243,9 +302,8 @@ main {
     transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
-.sobre-logo-box:hover {
-    transform: scale(1.05) rotate(-2deg);
-    box-shadow: 0 10px 25px rgba(157, 78, 221, 0.55);
+.sobre-logo-box:active {
+    transform: scale(0.96);
 }
 
 .sobre-logo-box.girar {
@@ -259,7 +317,7 @@ main {
 }
 
 .sobre-logo-box img {
-    width: 185px;
+    width: clamp(140px, 35vw, 185px);
     height: auto;
     display: block;
 }
@@ -289,14 +347,16 @@ main {
     background: rgba(123, 44, 191, 0.22);
     border: 1px solid rgba(199, 125, 255, 0.3);
     border-radius: 10px;
-    padding: 12px 14px;
+    padding: 14px;
     text-align: center;
-    transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
+    transition: transform 0.2s ease, background-color 0.25s ease, border-color 0.25s ease;
 }
 
-.destaque-item:hover,
+.destaque-item:active {
+    transform: scale(0.97);
+}
+
 .destaque-item.ativo {
-    transform: translateY(-3px);
     background: rgba(157, 78, 221, 0.42);
     border-color: #ffd166;
 }
@@ -322,6 +382,7 @@ main {
     color: #f3efff;
     font-size: 0.95rem;
     line-height: 1.5;
+    text-align: left;
     transition: opacity 0.25s ease;
 }
 
@@ -365,9 +426,9 @@ main {
     transition: transform 0.2s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-.integrante-card:hover {
-    border-color: #c77dff;
-    box-shadow: 0 16px 35px rgba(157, 78, 221, 0.5);
+.integrante-card:active {
+    transform: scale(0.98);
+    border-color: #ffd166;
 }
 
 .integrante-card.pulsando {
@@ -376,7 +437,7 @@ main {
 
 @keyframes pulsoCard {
     0% { transform: scale(1); }
-    45% { transform: scale(1.06); box-shadow: 0 0 30px #e0aaff; }
+    45% { transform: scale(1.04); box-shadow: 0 0 28px #e0aaff; }
     100% { transform: scale(1); }
 }
 
@@ -388,10 +449,6 @@ main {
     opacity: 0;
     transition: opacity 0.25s ease;
     background: radial-gradient(circle at 50% 50%, rgba(224, 170, 255, 0.32), transparent 65%);
-}
-
-.integrante-card:hover .card-reflexo {
-    opacity: 1;
 }
 
 .integrante-foto {
@@ -409,10 +466,6 @@ main {
     object-position: top center;
     display: block;
     transition: transform 0.4s ease;
-}
-
-.integrante-card:hover .integrante-foto img {
-    transform: scale(1.06);
 }
 
 .integrante-info {
@@ -445,13 +498,13 @@ main {
 }
 
 .integrante-info p {
-    font-size: 0.93rem;
+    font-size: 0.95rem;
     line-height: 1.55;
     color: #ece4ff;
     text-align: left;
 }
 
-/* TEXTO FLUTUANTE DO FANCHANT AO CLICAR NO CARD */
+/* TEXTO FLUTUANTE DO FANCHANT AO TOCAR/CLICAR NO CARD */
 .fanchant-flutuante {
     position: fixed;
     pointer-events: none;
@@ -461,10 +514,11 @@ main {
     background: linear-gradient(135deg, #5a189a, #9d4edd);
     color: #ffffff;
     border: 2px solid #ffd166;
-    padding: 6px 14px;
+    padding: 7px 15px;
     border-radius: 999px;
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 0.98rem;
+    white-space: nowrap;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.55);
     animation: subirFanchant 1.1s ease-out forwards;
 }
@@ -472,7 +526,7 @@ main {
 @keyframes subirFanchant {
     0% {
         opacity: 0;
-        transform: translate(-50%, -20%) scale(0.7);
+        transform: translate(-50%, -20%) scale(0.75);
     }
     20% {
         opacity: 1;
@@ -502,11 +556,6 @@ main {
     backdrop-filter: blur(6px);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.historia-card:hover {
-    border-color: #ffd166;
-    box-shadow: 0 14px 34px rgba(123, 44, 191, 0.4);
 }
 
 .historia-badge {
@@ -581,8 +630,8 @@ main {
 
 .disco-vinil {
     position: relative;
-    width: 155px;
-    height: 155px;
+    width: clamp(128px, 34vw, 155px);
+    height: clamp(128px, 34vw, 155px);
     border-radius: 50%;
     padding: 10px;
     background: radial-gradient(circle, #240046 0%, #0b0417 70%, #7b2cbf 100%);
@@ -615,8 +664,8 @@ main {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 26px;
-    height: 26px;
+    width: 24px;
+    height: 24px;
     transform: translate(-50%, -50%);
     border-radius: 50%;
     background-color: #120824;
@@ -668,24 +717,33 @@ main {
 }
 
 .player-controles-area h2 {
-    font-size: 1.75rem;
+    font-size: clamp(1.3rem, 3.8vw, 1.75rem);
     color: #ffffff;
     font-family: 'Trebuchet MS', sans-serif;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
 }
 
 .progresso-wrapper {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 18px;
+    gap: 10px;
+    margin-bottom: 16px;
     font-size: 0.88rem;
     color: #dfd3f7;
     font-variant-numeric: tabular-nums;
 }
 
-.barra-progresso-fundo {
+/* Área de toque maior (28px de altura) para facilitar arrastar com o dedo no celular */
+.progresso-touch-area {
     flex: 1;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    touch-action: none;
+}
+
+.barra-progresso-trilha {
+    width: 100%;
     height: 9px;
     border-radius: 999px;
     background-color: rgba(255, 255, 255, 0.16);
@@ -698,7 +756,7 @@ main {
     height: 100%;
     border-radius: 999px;
     background: linear-gradient(90deg, #9d4edd, #ffd166);
-    transition: width 0.15s linear;
+    transition: width 0.12s linear;
 }
 
 .player-botoes {
@@ -709,44 +767,45 @@ main {
 }
 
 .btn-player-sec {
-    width: 42px;
-    height: 42px;
+    width: 46px;
+    height: 46px;
     border-radius: 50%;
     border: 1px solid rgba(199, 125, 255, 0.4);
     background: rgba(18, 8, 36, 0.75);
     color: #ffffff;
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.2s ease, background-color 0.25s ease, border-color 0.25s ease;
+    transition: transform 0.18s ease, background-color 0.25s ease, border-color 0.25s ease;
 }
 
-.btn-player-sec:hover,
+.btn-player-sec:active {
+    transform: scale(0.92);
+}
+
 .btn-player-sec.ativo {
     background-color: #7b2cbf;
     border-color: #ffd166;
-    transform: scale(1.08);
 }
 
 .btn-player-play {
-    width: 56px;
-    height: 56px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     border: 2px solid #ffd166;
     background: linear-gradient(135deg, #7b2cbf, #9d4edd);
     color: #ffffff;
-    font-size: 1.35rem;
+    font-size: 1.4rem;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 0 0 20px rgba(157, 78, 221, 0.65);
-    transition: transform 0.2s ease, filter 0.2s ease;
+    transition: transform 0.18s ease, filter 0.2s ease;
 }
 
-.btn-player-play:hover {
-    transform: scale(1.08);
-    filter: brightness(1.12);
+.btn-player-play:active {
+    transform: scale(0.92);
 }
 
 .volume-grupo {
@@ -801,11 +860,12 @@ main {
     gap: 10px;
     max-height: 360px;
     overflow-y: auto;
-    padding-right: 6px;
+    padding-right: 4px;
+    -webkit-overflow-scrolling: touch;
 }
 
 .lista-faixas::-webkit-scrollbar {
-    width: 7px;
+    width: 6px;
 }
 
 .lista-faixas::-webkit-scrollbar-track {
@@ -818,25 +878,20 @@ main {
     border-radius: 999px;
 }
 
-.lista-faixas::-webkit-scrollbar-thumb:hover {
-    background: #c77dff;
-}
-
 .faixa-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 13px 18px;
+    gap: 12px;
+    padding: 14px 16px;
     border-radius: 12px;
     background: rgba(18, 8, 36, 0.65);
     border: 1px solid rgba(199, 125, 255, 0.22);
-    transition: transform 0.2s ease, background-color 0.25s ease, border-color 0.25s ease;
+    transition: transform 0.18s ease, background-color 0.25s ease, border-color 0.25s ease;
 }
 
-.faixa-item:hover {
-    transform: translateX(6px);
-    background: rgba(123, 44, 191, 0.28);
-    border-color: #c77dff;
+.faixa-item:active {
+    transform: scale(0.985);
 }
 
 .faixa-item.ativa {
@@ -848,20 +903,23 @@ main {
 .faixa-esq {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
+    min-width: 0;
 }
 
 .faixa-num {
     font-weight: 900;
     font-size: 1rem;
     color: #ffd166;
-    min-width: 26px;
+    min-width: 24px;
+    flex-shrink: 0;
 }
 
 .faixa-esq strong {
     display: block;
     color: #ffffff;
-    font-size: 1.02rem;
+    font-size: 1rem;
+    word-break: break-word;
 }
 
 .faixa-esq small {
@@ -873,6 +931,7 @@ main {
     font-size: 0.9rem;
     color: #dfd3f7;
     font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
 }
 
 /* ANIMAÇÃO DE REVELAR AO ROLAR */
@@ -890,7 +949,7 @@ main {
 /* LETREIRO CONTÍNUO BTS ACIMA DO FOOTER */
 .bloco-bts {
     margin-top: 50px;
-    padding: 18px 0;
+    padding: 16px 0;
     background: linear-gradient(135deg, #240046, #5a189a, #7b2cbf);
     color: #ffffff;
     border-top: 4px solid #c77dff;
@@ -908,15 +967,15 @@ main {
 .letreiro-conteudo {
     display: flex;
     align-items: center;
-    gap: 25px;
-    padding-right: 25px;
-    font-size: 1.35rem;
+    gap: 22px;
+    padding-right: 22px;
+    font-size: clamp(1.1rem, 3vw, 1.35rem);
     font-weight: bold;
     text-shadow: 0 0 10px rgba(224, 170, 255, 0.8);
 }
 
 .letreiro-conteudo .destaque-bts {
-    font-size: 1.65rem;
+    font-size: clamp(1.3rem, 3.6vw, 1.65rem);
     color: #ffd166;
     letter-spacing: 3px;
 }
@@ -933,12 +992,12 @@ main {
 /* FOOTER */
 footer {
     text-align: center;
-    font-size: 1.05rem;
+    font-size: 1rem;
     color: #e0aaff;
     background-color: #080312;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: 550;
-    padding: 28px 20px;
+    padding: 26px 20px calc(26px + env(safe-area-inset-bottom));
 }
 
 footer p + p {
@@ -990,25 +1049,130 @@ footer p + p {
     }
 }
 
-/* RESPONSIVIDADE */
+/* ==========================================
+   HOVER APENAS EM DISPOSITIVOS COM MOUSE
+   ========================================== */
+@media (hover: hover) and (pointer: fine) {
+    .sobre-logo-box:hover {
+        transform: scale(1.05) rotate(-2deg);
+        box-shadow: 0 10px 25px rgba(157, 78, 221, 0.55);
+    }
+
+    .destaque-item:hover {
+        transform: translateY(-3px);
+        background: rgba(157, 78, 221, 0.42);
+        border-color: #ffd166;
+    }
+
+    .integrante-card:hover {
+        border-color: #c77dff;
+        box-shadow: 0 16px 35px rgba(157, 78, 221, 0.5);
+    }
+
+    .integrante-card:hover .card-reflexo {
+        opacity: 1;
+    }
+
+    .integrante-card:hover .integrante-foto img {
+        transform: scale(1.06);
+    }
+
+    .historia-card:hover {
+        border-color: #ffd166;
+        box-shadow: 0 14px 34px rgba(123, 44, 191, 0.4);
+    }
+
+    .btn-player-sec:hover {
+        background-color: #7b2cbf;
+        border-color: #ffd166;
+        transform: scale(1.08);
+    }
+
+    .btn-player-play:hover {
+        transform: scale(1.08);
+        filter: brightness(1.12);
+    }
+
+    .faixa-item:hover {
+        transform: translateX(6px);
+        background: rgba(123, 44, 191, 0.28);
+        border-color: #c77dff;
+    }
+}
+
+/* ==========================================
+   RESPONSIVIDADE PARA TABLETS E CELULARES
+   ========================================== */
 @media (max-width: 780px) {
+    #topo,
+    #sobre,
+    #integrantes,
+    #historia,
+    #musicas {
+        scroll-margin-top: 82px;
+    }
+
     .navbar {
-        justify-content: center;
+        padding: 10px 18px;
+    }
+
+    #bighit {
+        width: 108px;
+    }
+
+    .menu-toggle {
+        display: flex;
     }
 
     .navegaMenu {
-        gap: 10px;
-        justify-content: center;
+        position: absolute;
+        top: calc(100% + 4px);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+        background-color: #f8f7fc;
+        padding: 14px 18px 18px;
+        border-bottom: 4px solid #7b2cbf;
+        box-shadow: 0 16px 32px rgba(10, 4, 22, 0.75);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
     }
 
-    .slideshow-wrapper {
-        height: 290px;
+    .navegaMenu.aberto {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .navegaMenu li a {
+        padding: 12px 16px;
+        font-size: 1.05rem;
+        text-align: center;
+        border-radius: 10px;
+    }
+
+    .bts {
+        margin-top: 22px;
+        padding: 0 14px;
+    }
+
+    .secao-sobre,
+    .secao-integrantes,
+    .secao-historia,
+    .secao-musicas {
+        margin-top: 38px;
+        padding: 0 14px;
     }
 
     .sobre-card,
     .player-painel {
         flex-direction: column;
         text-align: center;
+        gap: 22px;
     }
 
     .sobre-destaques {
@@ -1024,10 +1188,36 @@ footer p + p {
     }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 640px) {
+    /* Evita espaçamento esticado entre palavras em telas estreitas, mantendo o recuo de 2 dedos */
+    .twofingers {
+        text-align: left;
+        text-indent: 24px;
+        font-size: 1rem;
+        line-height: 1.68;
+    }
+
+    .sobre-card,
+    .historia-card,
+    .player-arirang-box {
+        padding: 22px 18px;
+    }
+
+    .banner-legenda {
+        padding: 26px 16px 14px;
+    }
+
+    .integrantes-grid {
+        gap: 18px;
+    }
+
     .integrante-card {
         width: 100%;
-        max-width: 340px;
+        max-width: 380px;
+    }
+
+    .integrante-foto {
+        height: 310px;
     }
 }
 
@@ -1035,8 +1225,14 @@ footer p + p {
     * {
         cursor: auto;
     }
+
     .cursor-ponto,
     #gif-cursor {
+        display: none;
+    }
+
+    /* No celular, o volume é controlado pelos botões físicos do aparelho */
+    .volume-grupo {
         display: none;
     }
 }
