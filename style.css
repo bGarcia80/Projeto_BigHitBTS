@@ -941,6 +941,11 @@ footer {
     padding: 28px 20px;
 }
 
+footer p + p {
+    margin-top: 8px;
+    color: #ffd166;
+}
+
 /* CURSOR PERSONALIZADO E TANQUE */
 .cursor-ponto {
     width: 35px;
