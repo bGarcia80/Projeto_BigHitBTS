@@ -165,33 +165,19 @@ window.addEventListener('scroll', () => {
 // ==========================================
 // 2. FUNÇÃO UNIFICADA DE SLIDESHOW (AUTOMÁTICO + SWIPE TOUCH)
 // ==========================================
-function iniciarSlideshow(containerId, seletorSlides, indicadoresId, intervaloMs) {
+function iniciarSlideshow(containerId, seletorSlides, intervaloMs) {
     const container = document.getElementById(containerId);
     const listaSlides = document.querySelectorAll(seletorSlides);
-    const indicadores = document.getElementById(indicadoresId);
 
-    if (!container || listaSlides.length === 0 || !indicadores) return;
+    if (!container || listaSlides.length === 0) return;
 
     let indiceAtual = 0;
     let timer = null;
 
-    listaSlides.forEach((_, index) => {
-        const dot = document.createElement('span');
-        dot.classList.add('dot');
-        if (index === 0) dot.classList.add('ativo');
-        indicadores.appendChild(dot);
-    });
-
-    const dots = indicadores.querySelectorAll('.dot');
-
     function irParaSlide(novoIndice) {
         listaSlides[indiceAtual].classList.remove('ativo');
-        dots[indiceAtual].classList.remove('ativo');
-
         indiceAtual = (novoIndice + listaSlides.length) % listaSlides.length;
-
         listaSlides[indiceAtual].classList.add('ativo');
-        dots[indiceAtual].classList.add('ativo');
     }
 
     function iniciarAuto() {
@@ -220,8 +206,8 @@ function iniciarSlideshow(containerId, seletorSlides, indicadoresId, intervaloMs
     iniciarAuto();
 }
 
-iniciarSlideshow('banner-card', '#banner-card .slide', 'slide-indicadores', 6500);
-iniciarSlideshow('bio-slideshow', '#bio-slideshow .bio-slide', 'bio-indicadores', 7000);
+iniciarSlideshow('banner-card', '#banner-card .slide', 6500);
+iniciarSlideshow('bio-slideshow', '#bio-slideshow .bio-slide', 7000);
 
 // ==========================================
 // 3. INCLINAÇÃO 3D SUAVE NOS BANNERS (APENAS DESKTOP)
