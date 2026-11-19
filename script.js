@@ -88,6 +88,7 @@ const header = document.querySelector('.inicio');
 const menuToggle = document.getElementById('menu-toggle');
 const navegaMenu = document.getElementById('navega-menu');
 const linksMenu = document.querySelectorAll('.navegaMenu a[href^="#"]');
+const btnPortfolio = document.querySelector('.btn-portfolio');
 
 function fecharMenuMobile() {
     if (!menuToggle || !navegaMenu) return;
@@ -111,15 +112,23 @@ if (menuToggle && navegaMenu) {
     });
 }
 
-if (header) {
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 20) {
-            header.classList.add('rolando');
-        } else {
-            header.classList.remove('rolando');
-        }
-    }, { passive: true });
+if (btnPortfolio) {
+    btnPortfolio.addEventListener('click', () => {
+        fecharMenuMobile();
+    });
 }
+
+function atualizarEstadoNavbar() {
+    if (!header) return;
+    if (window.scrollY > 20) {
+        header.classList.add('rolando');
+    } else {
+        header.classList.remove('rolando');
+    }
+}
+
+atualizarEstadoNavbar();
+window.addEventListener('scroll', atualizarEstadoNavbar, { passive: true });
 
 linksMenu.forEach((link) => {
     link.addEventListener('click', (e) => {
@@ -141,26 +150,6 @@ linksMenu.forEach((link) => {
         }
     });
 });
-
-// Destaca automaticamente a seção atual no menu ao rolar
-const secoesSpy = ['topo', 'sobre', 'integrantes', 'historia', 'musicas']
-    .map((id) => document.getElementById(id))
-    .filter(Boolean);
-
-window.addEventListener('scroll', () => {
-    const posScroll = window.scrollY + (header ? header.offsetHeight : 80) + 60;
-    let idAtivo = 'topo';
-
-    secoesSpy.forEach((sec) => {
-        if (posScroll >= sec.offsetTop) {
-            idAtivo = sec.id;
-        }
-    });
-
-    linksMenu.forEach((link) => {
-        link.classList.toggle('menu-ativo', link.getAttribute('href') === `#${idAtivo}`);
-    });
-}, { passive: true });
 
 // ==========================================
 // 2. FUNÇÃO UNIFICADA DE SLIDESHOW (AUTOMÁTICO + SWIPE TOUCH)

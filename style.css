@@ -18,6 +18,7 @@ body {
     overflow-x: hidden;
     min-height: 100vh;
     min-height: 100dvh;
+    padding-top: calc(76px + env(safe-area-inset-top));
     display: flex;
     flex-direction: column;
 }
@@ -35,18 +36,24 @@ main {
     scroll-margin-top: 95px;
 }
 
-/* NAVBAR */
+/* NAVBAR SEMPRE FIXA NO TOPO */
 .inicio {
     background-color: #f8f7fc;
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
     z-index: 1000;
     border-bottom: 4px solid #7b2cbf;
     padding-top: env(safe-area-inset-top);
-    transition: box-shadow 0.3s ease;
+    transition: background-color 0.35s ease, box-shadow 0.35s ease, backdrop-filter 0.35s ease;
 }
 
 .inicio.rolando {
+    background-color: rgba(248, 247, 252, 0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     box-shadow: 0 6px 25px rgba(123, 44, 191, 0.45);
 }
 
@@ -128,7 +135,7 @@ main {
 .navegaMenu {
     list-style: none;
     display: flex;
-    gap: 16px;
+    gap: 10px;
     align-items: center;
     flex-wrap: wrap;
 }
@@ -137,18 +144,38 @@ main {
     text-decoration: none;
     color: #180c2e;
     font-family: 'Trebuchet MS', sans-serif;
-    font-size: 1.02rem;
+    font-size: 1rem;
     font-weight: 700;
-    padding: 8px 14px;
+    padding: 8px 13px;
     border-radius: 8px;
     display: block;
-    transition: background-color 0.25s, color 0.25s;
+    transition: background-color 0.25s, color 0.25s, transform 0.2s ease, box-shadow 0.25s ease;
 }
 
-.navegaMenu li a:hover,
-.navegaMenu li a.menu-ativo {
+.navegaMenu li a:hover {
     background-color: #7b2cbf;
     color: #ffffff;
+}
+
+/* BOTÃO PORTFÓLIO NA BARRA SUPERIOR */
+.navegaMenu li a.btn-portfolio {
+    background: linear-gradient(135deg, #5a189a, #9d4edd);
+    color: #ffffff;
+    border: 2px solid #ffd166;
+    border-radius: 999px;
+    padding: 7px 18px;
+    box-shadow: 0 3px 12px rgba(123, 44, 191, 0.35);
+}
+
+.navegaMenu li a.btn-portfolio:hover {
+    background: linear-gradient(135deg, #3c096c, #7b2cbf);
+    color: #ffd166;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(123, 44, 191, 0.55);
+}
+
+.navegaMenu li a.btn-portfolio:active {
+    transform: scale(0.96);
 }
 
 /* SLIDESHOW BTS (BANNER PRINCIPAL E GALERIA DA BIOGRAFIA) */
@@ -1136,7 +1163,11 @@ footer p + p {
 /* ==========================================
    RESPONSIVIDADE PARA TABLETS E CELULARES
    ========================================== */
-@media (max-width: 780px) {
+@media (max-width: 860px) {
+    body {
+        padding-top: calc(68px + env(safe-area-inset-top));
+    }
+
     #topo,
     #sobre,
     #integrantes,
@@ -1172,7 +1203,13 @@ footer p + p {
         opacity: 0;
         visibility: hidden;
         transform: translateY(-10px);
-        transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+        transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s, background-color 0.35s ease;
+    }
+
+    .inicio.rolando .navegaMenu {
+        background-color: rgba(248, 247, 252, 0.92);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
     }
 
     .navegaMenu.aberto {
@@ -1186,6 +1223,11 @@ footer p + p {
         font-size: 1.05rem;
         text-align: center;
         border-radius: 10px;
+    }
+
+    .navegaMenu li a.btn-portfolio {
+        margin-top: 4px;
+        padding: 12px 16px;
     }
 
     .bts {
