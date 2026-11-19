@@ -1,5 +1,5 @@
-# 💜 Projeto BTS — BIGHIT MUSIC
-### Um projeto dedicado ao BTS, à BIGHIT MUSIC e ao ARMY.
+# 💜 Projeto BigHit/BTS
+### Um projeto dedicado ao BTS e ao ARMY.
 
 ---
 
