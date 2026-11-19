@@ -1,0 +1,1037 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    cursor: none;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: linear-gradient(180deg, #120824 0%, #1d0f36 50%, #0e061c 100%);
+    color: #f3efff;
+    font-family: 'Segoe UI', 'Trebuchet MS', Arial, sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* DIRECIONAMENTO LIMPO PARA O TÍTULO (EVITA QUE A NAVBAR FIXA CUBRA O H1) */
+#topo,
+#sobre,
+#integrantes,
+#historia,
+#musicas {
+    scroll-margin-top: 105px;
+}
+
+/* NAVBAR */
+.inicio {
+    background-color: #f8f7fc;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 4px solid #7b2cbf;
+    transition: box-shadow 0.3s ease;
+}
+
+.inicio.rolando {
+    box-shadow: 0 6px 25px rgba(123, 44, 191, 0.45);
+}
+
+.navbar {
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 12px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+#bighit {
+    width: 125px;
+    height: auto;
+    display: block;
+    transition: transform 0.25s ease;
+}
+
+#bighit:hover {
+    transform: scale(1.04);
+}
+
+.navegaMenu {
+    list-style: none;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.navegaMenu li a {
+    text-decoration: none;
+    color: #180c2e;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 1.02rem;
+    font-weight: 700;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: background-color 0.25s, color 0.25s;
+}
+
+.navegaMenu li a:hover,
+.navegaMenu li a.menu-ativo {
+    background-color: #7b2cbf;
+    color: #ffffff;
+}
+
+/* SLIDESHOW BTS (BANNER PRINCIPAL E GALERIA DA BIOGRAFIA) */
+.bts {
+    max-width: 1050px;
+    margin: 35px auto 10px auto;
+    padding: 0 20px;
+}
+
+.banner-moldura {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 2px solid rgba(199, 125, 255, 0.45);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(157, 78, 221, 0.35);
+    transition: transform 0.2s ease-out, box-shadow 0.3s ease;
+}
+
+.bio-slideshow {
+    margin-top: 28px;
+}
+
+.slideshow-wrapper {
+    position: relative;
+    width: 100%;
+    height: 470px;
+    background-color: #0b0417;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.9s ease-in-out, transform 6.5s ease;
+    transform: scale(1.03);
+}
+
+.bio-slide {
+    transition: opacity 0.9s ease-in-out, transform 7s ease;
+}
+
+.slide.ativo {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.banner-legenda {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    padding: 35px 24px 18px;
+    background: linear-gradient(transparent, rgba(14, 6, 28, 0.94));
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.badge-bts {
+    display: inline-block;
+    background-color: #7b2cbf;
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+}
+
+.banner-legenda h2 {
+    font-size: 1.6rem;
+    color: #ffffff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+.slide-indicadores {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    pointer-events: none;
+}
+
+.dot {
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    border-radius: 999px;
+    background-color: rgba(255, 255, 255, 0.4);
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.dot.ativo {
+    width: 28px;
+    background-color: #c77dff;
+    box-shadow: 0 0 10px #c77dff;
+}
+
+/* TÍTULOS DE SEÇÃO */
+.secao-sobre h1,
+.secao-integrantes h1,
+.secao-historia h1,
+.secao-musicas h1 {
+    font-size: 2.5rem;
+    color: #ffffff;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: 900;
+    text-shadow: 2px 3px rgba(0, 0, 0, 0.6);
+    padding-bottom: 10px;
+    margin-bottom: 24px;
+    border-bottom: 3px solid #9d4edd;
+    display: inline-block;
+}
+
+/* SEÇÃO QUEM SOMOS / BIGHIT */
+.secao-sobre {
+    max-width: 1050px;
+    margin: 50px auto 20px auto;
+    padding: 0 20px;
+}
+
+.sobre-card {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(199, 125, 255, 0.3);
+    border-radius: 16px;
+    padding: 32px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+.sobre-logo-box {
+    flex-shrink: 0;
+    background-color: #f8f7fc;
+    padding: 28px 24px;
+    border-radius: 14px;
+    border-bottom: 5px solid #7b2cbf;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.sobre-logo-box:hover {
+    transform: scale(1.05) rotate(-2deg);
+    box-shadow: 0 10px 25px rgba(157, 78, 221, 0.55);
+}
+
+.sobre-logo-box.girar {
+    animation: giroSuave 0.5s ease;
+}
+
+@keyframes giroSuave {
+    0% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.08) rotate(5deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+.sobre-logo-box img {
+    width: 185px;
+    height: auto;
+    display: block;
+}
+
+.sobre-lema {
+    display: inline-block;
+    font-size: 0.95rem;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #ffd166;
+    margin-bottom: 12px;
+}
+
+.sobre-texto p + p {
+    margin-top: 12px;
+}
+
+.sobre-destaques {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 22px;
+}
+
+.destaque-item {
+    background: rgba(123, 44, 191, 0.22);
+    border: 1px solid rgba(199, 125, 255, 0.3);
+    border-radius: 10px;
+    padding: 12px 14px;
+    text-align: center;
+    transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.destaque-item:hover,
+.destaque-item.ativo {
+    transform: translateY(-3px);
+    background: rgba(157, 78, 221, 0.42);
+    border-color: #ffd166;
+}
+
+.destaque-item strong {
+    display: block;
+    font-size: 1.3rem;
+    color: #e0aaff;
+    margin-bottom: 3px;
+}
+
+.destaque-item span {
+    font-size: 0.85rem;
+    color: #dfd3f7;
+}
+
+.detalhe-destaque {
+    margin-top: 14px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    background: rgba(18, 8, 36, 0.65);
+    border-left: 4px solid #ffd166;
+    color: #f3efff;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    transition: opacity 0.25s ease;
+}
+
+/* SEÇÃO INTEGRANTES DO BTS */
+.secao-integrantes {
+    max-width: 1050px;
+    margin: 50px auto 20px auto;
+    padding: 0 20px;
+}
+
+.secao-integrantes h1 {
+    margin-bottom: 12px;
+}
+
+.integrantes-intro {
+    color: #d8c7f5;
+    font-size: 1.05rem;
+    margin-bottom: 28px;
+    line-height: 1.5;
+}
+
+.integrantes-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 22px;
+}
+
+.integrante-card {
+    position: relative;
+    width: calc(25% - 17px);
+    min-width: 225px;
+    max-width: 260px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(199, 125, 255, 0.3);
+    border-radius: 16px;
+    overflow: hidden;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    transform-style: preserve-3d;
+    transition: transform 0.2s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.integrante-card:hover {
+    border-color: #c77dff;
+    box-shadow: 0 16px 35px rgba(157, 78, 221, 0.5);
+}
+
+.integrante-card.pulsando {
+    animation: pulsoCard 0.45s ease;
+}
+
+@keyframes pulsoCard {
+    0% { transform: scale(1); }
+    45% { transform: scale(1.06); box-shadow: 0 0 30px #e0aaff; }
+    100% { transform: scale(1); }
+}
+
+.card-reflexo {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    background: radial-gradient(circle at 50% 50%, rgba(224, 170, 255, 0.32), transparent 65%);
+}
+
+.integrante-card:hover .card-reflexo {
+    opacity: 1;
+}
+
+.integrante-foto {
+    width: 100%;
+    height: 270px;
+    overflow: hidden;
+    background-color: #160a2c;
+    border-bottom: 3px solid #7b2cbf;
+}
+
+.integrante-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.integrante-card:hover .integrante-foto img {
+    transform: scale(1.06);
+}
+
+.integrante-info {
+    padding: 18px 18px 22px;
+}
+
+.integrante-cargo {
+    display: inline-block;
+    font-size: 0.74rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #ffd166;
+    margin-bottom: 6px;
+}
+
+.integrante-info h3 {
+    font-size: 1.45rem;
+    color: #ffffff;
+    font-family: 'Trebuchet MS', sans-serif;
+    margin-bottom: 2px;
+}
+
+.integrante-nome-real {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #c77dff;
+    margin-bottom: 10px;
+}
+
+.integrante-info p {
+    font-size: 0.93rem;
+    line-height: 1.55;
+    color: #ece4ff;
+    text-align: left;
+}
+
+/* TEXTO FLUTUANTE DO FANCHANT AO CLICAR NO CARD */
+.fanchant-flutuante {
+    position: fixed;
+    pointer-events: none;
+    user-select: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #5a189a, #9d4edd);
+    color: #ffffff;
+    border: 2px solid #ffd166;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-weight: bold;
+    font-size: 1rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.55);
+    animation: subirFanchant 1.1s ease-out forwards;
+}
+
+@keyframes subirFanchant {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -20%) scale(0.7);
+    }
+    20% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.05);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -140%) scale(1);
+    }
+}
+
+/* ==========================================
+   SEÇÃO SOBRE O BTS (HISTÓRIA)
+   ========================================== */
+.secao-historia {
+    max-width: 1050px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+.historia-card {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(199, 125, 255, 0.3);
+    border-left: 5px solid #c77dff;
+    border-radius: 16px;
+    padding: 32px 34px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.historia-card:hover {
+    border-color: #ffd166;
+    box-shadow: 0 14px 34px rgba(123, 44, 191, 0.4);
+}
+
+.historia-badge {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    color: #ffd166;
+    background: rgba(123, 44, 191, 0.32);
+    border: 1px solid rgba(199, 125, 255, 0.4);
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+}
+
+.historia-card p + p {
+    margin-top: 14px;
+}
+
+.twofingers {
+    text-align: justify;
+    text-indent: 30px; /* 2 fingers, Profª Samara */
+    line-height: 1.75;
+    font-size: 1.08rem;
+    color: #f1ebff;
+}
+
+/* ==========================================
+   PLAYER EMBUTIDO DE MÚSICAS - ARIRANG
+   ========================================== */
+.secao-musicas {
+    max-width: 1050px;
+    margin: 55px auto;
+    padding: 0 20px;
+}
+
+.secao-musicas h1 {
+    margin-bottom: 10px;
+}
+
+.musicas-subtitulo {
+    color: #d8c7f5;
+    font-size: 1.05rem;
+    margin-bottom: 26px;
+}
+
+.player-arirang-box {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(199, 125, 255, 0.38);
+    border-radius: 18px;
+    padding: 30px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(123, 44, 191, 0.25);
+}
+
+.player-painel {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding-bottom: 26px;
+    border-bottom: 1px solid rgba(199, 125, 255, 0.25);
+}
+
+.disco-container {
+    position: relative;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.disco-vinil {
+    position: relative;
+    width: 155px;
+    height: 155px;
+    border-radius: 50%;
+    padding: 10px;
+    background: radial-gradient(circle, #240046 0%, #0b0417 70%, #7b2cbf 100%);
+    border: 3px solid #c77dff;
+    box-shadow: 0 0 25px rgba(199, 125, 255, 0.45);
+    animation: girarDisco 10s linear infinite;
+    animation-play-state: paused;
+}
+
+.disco-vinil.tocando {
+    animation-play-state: running;
+    box-shadow: 0 0 32px rgba(255, 209, 102, 0.65);
+    border-color: #ffd166;
+}
+
+@keyframes girarDisco {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.disco-vinil img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+.disco-centro {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 26px;
+    height: 26px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background-color: #120824;
+    border: 3px solid #ffd166;
+}
+
+.equalizador {
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+    height: 22px;
+}
+
+.equalizador span {
+    width: 5px;
+    height: 6px;
+    border-radius: 3px;
+    background: linear-gradient(180deg, #ffd166, #c77dff);
+    transition: height 0.2s ease;
+}
+
+.equalizador.tocando span:nth-child(1) { animation: ondaSom 0.6s infinite ease-in-out; }
+.equalizador.tocando span:nth-child(2) { animation: ondaSom 0.45s infinite ease-in-out 0.1s; }
+.equalizador.tocando span:nth-child(3) { animation: ondaSom 0.7s infinite ease-in-out 0.2s; }
+.equalizador.tocando span:nth-child(4) { animation: ondaSom 0.5s infinite ease-in-out 0.15s; }
+.equalizador.tocando span:nth-child(5) { animation: ondaSom 0.65s infinite ease-in-out 0.05s; }
+
+@keyframes ondaSom {
+    0%, 100% { height: 6px; }
+    50% { height: 22px; }
+}
+
+.player-controles-area {
+    flex: 1;
+    width: 100%;
+}
+
+.player-selo {
+    display: inline-block;
+    background-color: rgba(123, 44, 191, 0.4);
+    border: 1px solid #c77dff;
+    color: #ffd166;
+    font-size: 0.76rem;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.player-controles-area h2 {
+    font-size: 1.75rem;
+    color: #ffffff;
+    font-family: 'Trebuchet MS', sans-serif;
+    margin-bottom: 16px;
+}
+
+.progresso-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    font-size: 0.88rem;
+    color: #dfd3f7;
+    font-variant-numeric: tabular-nums;
+}
+
+.barra-progresso-fundo {
+    flex: 1;
+    height: 9px;
+    border-radius: 999px;
+    background-color: rgba(255, 255, 255, 0.16);
+    overflow: hidden;
+    position: relative;
+}
+
+.barra-progresso-preenchida {
+    width: 0%;
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #9d4edd, #ffd166);
+    transition: width 0.15s linear;
+}
+
+.player-botoes {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.btn-player-sec {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid rgba(199, 125, 255, 0.4);
+    background: rgba(18, 8, 36, 0.75);
+    color: #ffffff;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.btn-player-sec:hover,
+.btn-player-sec.ativo {
+    background-color: #7b2cbf;
+    border-color: #ffd166;
+    transform: scale(1.08);
+}
+
+.btn-player-play {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 2px solid #ffd166;
+    background: linear-gradient(135deg, #7b2cbf, #9d4edd);
+    color: #ffffff;
+    font-size: 1.35rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(157, 78, 221, 0.65);
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.btn-player-play:hover {
+    transform: scale(1.08);
+    filter: brightness(1.12);
+}
+
+.volume-grupo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+    background: rgba(18, 8, 36, 0.65);
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(199, 125, 255, 0.3);
+}
+
+.volume-grupo input[type="range"] {
+    width: 90px;
+    accent-color: #ffd166;
+}
+
+.player-status {
+    margin-top: 14px;
+    font-size: 0.9rem;
+    color: #e0aaff;
+    min-height: 20px;
+}
+
+/* PLAYLIST ARIRANG */
+.playlist-arirang {
+    margin-top: 22px;
+}
+
+.playlist-cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+    color: #ffd166;
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+.playlist-cabecalho small {
+    color: #c77dff;
+    font-weight: 600;
+}
+
+.lista-faixas {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 360px;
+    overflow-y: auto;
+    padding-right: 6px;
+}
+
+.lista-faixas::-webkit-scrollbar {
+    width: 7px;
+}
+
+.lista-faixas::-webkit-scrollbar-track {
+    background: rgba(18, 8, 36, 0.6);
+    border-radius: 999px;
+}
+
+.lista-faixas::-webkit-scrollbar-thumb {
+    background: #7b2cbf;
+    border-radius: 999px;
+}
+
+.lista-faixas::-webkit-scrollbar-thumb:hover {
+    background: #c77dff;
+}
+
+.faixa-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 18px;
+    border-radius: 12px;
+    background: rgba(18, 8, 36, 0.65);
+    border: 1px solid rgba(199, 125, 255, 0.22);
+    transition: transform 0.2s ease, background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.faixa-item:hover {
+    transform: translateX(6px);
+    background: rgba(123, 44, 191, 0.28);
+    border-color: #c77dff;
+}
+
+.faixa-item.ativa {
+    background: linear-gradient(135deg, rgba(123, 44, 191, 0.45), rgba(157, 78, 221, 0.25));
+    border-color: #ffd166;
+    box-shadow: 0 4px 16px rgba(157, 78, 221, 0.35);
+}
+
+.faixa-esq {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.faixa-num {
+    font-weight: 900;
+    font-size: 1rem;
+    color: #ffd166;
+    min-width: 26px;
+}
+
+.faixa-esq strong {
+    display: block;
+    color: #ffffff;
+    font-size: 1.02rem;
+}
+
+.faixa-esq small {
+    color: #c77dff;
+    font-size: 0.82rem;
+}
+
+.faixa-duracao {
+    font-size: 0.9rem;
+    color: #dfd3f7;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ANIMAÇÃO DE REVELAR AO ROLAR */
+.revelar {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.revelar.visivel {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* LETREIRO CONTÍNUO BTS ACIMA DO FOOTER */
+.bloco-bts {
+    margin-top: 50px;
+    padding: 18px 0;
+    background: linear-gradient(135deg, #240046, #5a189a, #7b2cbf);
+    color: #ffffff;
+    border-top: 4px solid #c77dff;
+    border-bottom: 4px solid #c77dff;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.letreiro-trilha {
+    display: flex;
+    width: max-content;
+    animation: rodarNoticias 16s linear infinite;
+}
+
+.letreiro-conteudo {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    padding-right: 25px;
+    font-size: 1.35rem;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(224, 170, 255, 0.8);
+}
+
+.letreiro-conteudo .destaque-bts {
+    font-size: 1.65rem;
+    color: #ffd166;
+    letter-spacing: 3px;
+}
+
+@keyframes rodarNoticias {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    font-size: 1.05rem;
+    color: #e0aaff;
+    background-color: #080312;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 550;
+    padding: 28px 20px;
+}
+
+/* CURSOR PERSONALIZADO E TANQUE */
+.cursor-ponto {
+    width: 35px;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9999;
+}
+
+#gif-cursor {
+    width: 55px;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9998;
+}
+
+/* PARTÍCULAS DE BRILHO */
+.brilho {
+    position: fixed;
+    pointer-events: none;
+    user-select: none;
+    z-index: 9997;
+    transform: translate(-50%, -50%);
+    animation: flutuarBrilho 0.9s ease-out forwards;
+}
+
+@keyframes flutuarBrilho {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.5) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.4) rotate(180deg);
+    }
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 780px) {
+    .navbar {
+        justify-content: center;
+    }
+
+    .navegaMenu {
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .slideshow-wrapper {
+        height: 290px;
+    }
+
+    .sobre-card,
+    .player-painel {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .sobre-destaques {
+        grid-template-columns: 1fr;
+    }
+
+    .player-botoes {
+        justify-content: center;
+    }
+
+    .volume-grupo {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 560px) {
+    .integrante-card {
+        width: 100%;
+        max-width: 340px;
+    }
+}
+
+@media (pointer: coarse) {
+    * {
+        cursor: auto;
+    }
+    .cursor-ponto,
+    #gif-cursor {
+        display: none;
+    }
+}
