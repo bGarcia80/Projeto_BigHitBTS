@@ -415,8 +415,34 @@ function formatarTempo(segundos) {
 if (audioPlayer && itensFaixa.length > 0) {
     let indiceFaixaAtual = 0;
     let repetirAtivo = false;
+    let usuarioInteragiu = false;
 
     audioPlayer.volume = controleVolume ? parseFloat(controleVolume.value) : 0.85;
+
+    function resolverUrlAudio(caminhoRelativo) {
+        try {
+            return new URL(caminhoRelativo, window.location.href).href;
+        } catch {
+            return caminhoRelativo;
+        }
+    }
+
+    function atualizarMediaSession(titulo) {
+        if ('mediaSession' in navigator) {
+            try {
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: titulo,
+                    artist: 'BTS',
+                    album: 'ARIRANG',
+                    artwork: [
+                        { src: resolverUrlAudio('./img/capa.jpg'), sizes: '512x512', type: 'image/jpeg' }
+                    ]
+                });
+            } catch {
+                // Ignora em navegadores sem suporte completo ao MediaMetadata
+            }
+        }
+    }
 
     function atualizarVisualTocando(tocando) {
         if (btnPlayPause) btnPlayPause.textContent = tocando ? '⏸' : '▶';
@@ -433,6 +459,34 @@ if (audioPlayer && itensFaixa.length > 0) {
         });
     }
 
+    function executarPlayMobileSeguro(titulo) {
+        usuarioInteragiu = true;
+        if (statusPlayer) statusPlayer.textContent = `⏳ Carregando: ${titulo}...`;
+
+        const promessaPlay = audioPlayer.play();
+        if (promessaPlay !== undefined) {
+            promessaPlay
+                .then(() => {
+                    atualizarVisualTocando(true);
+                    atualizarMediaSession(titulo);
+                    if (statusPlayer) statusPlayer.textContent = `💜 Tocando agora: ${titulo}`;
+                })
+                .catch((erro) => {
+                    if (erro && erro.name === 'AbortError') return;
+                    atualizarVisualTocando(false);
+                    if (statusPlayer) {
+                        if (erro && erro.name === 'NotAllowedError') {
+                            statusPlayer.textContent = `▶️ Toque novamente em Play para iniciar "${titulo}".`;
+                        } else if (erro && erro.name === 'NotSupportedError') {
+                            statusPlayer.textContent = `⚠️ Codec de áudio incompatível com este celular em "${titulo}".`;
+                        } else {
+                            statusPlayer.textContent = `⚠️ Não foi possível reproduzir "${titulo}" (${erro ? erro.name : 'erro'}).`;
+                        }
+                    }
+                });
+        }
+    }
+
     function carregarFaixa(indice, tocarAutomaticamente = false) {
         indiceFaixaAtual = (indice + itensFaixa.length) % itensFaixa.length;
 
@@ -440,11 +494,14 @@ if (audioPlayer && itensFaixa.length > 0) {
         const itemSelecionado = itensFaixa[indiceFaixaAtual];
         itemSelecionado.classList.add('ativa');
 
-        const arquivoSrc = itemSelecionado.getAttribute('data-src');
+        const urlAudio = resolverUrlAudio(itemSelecionado.getAttribute('data-src'));
         const titulo = itemSelecionado.getAttribute('data-titulo');
         const duracaoLista = itemSelecionado.querySelector('.faixa-duracao');
 
-        audioPlayer.src = arquivoSrc;
+        audioPlayer.pause();
+        audioPlayer.src = urlAudio;
+        audioPlayer.load();
+
         if (tituloFaixaAtual) tituloFaixaAtual.textContent = titulo;
         if (barraProgressoPreenchida) barraProgressoPreenchida.style.width = '0%';
         if (tempoAtualEl) tempoAtualEl.textContent = '00:00';
@@ -454,17 +511,7 @@ if (audioPlayer && itensFaixa.length > 0) {
 
         if (tocarAutomaticamente) {
             rolarPlaylistParaFaixa(itemSelecionado);
-            audioPlayer.play()
-                .then(() => {
-                    atualizarVisualTocando(true);
-                    if (statusPlayer) statusPlayer.textContent = `💜 Tocando agora: ${titulo}`;
-                })
-                .catch(() => {
-                    atualizarVisualTocando(false);
-                    if (statusPlayer) {
-                        statusPlayer.textContent = `⚠️ Áudio de "${titulo}" ainda não disponível.`;
-                    }
-                });
+            executarPlayMobileSeguro(titulo);
         } else {
             atualizarVisualTocando(false);
             if (statusPlayer) statusPlayer.textContent = `Faixa selecionada: ${titulo}`;
@@ -474,21 +521,19 @@ if (audioPlayer && itensFaixa.length > 0) {
     carregarFaixa(0, false);
 
     btnPlayPause.addEventListener('click', (e) => {
-        const titulo = itensFaixa[indiceFaixaAtual].getAttribute('data-titulo');
+        const itemAtual = itensFaixa[indiceFaixaAtual];
+        const titulo = itemAtual.getAttribute('data-titulo');
+        const urlAudio = resolverUrlAudio(itemAtual.getAttribute('data-src'));
 
         if (audioPlayer.paused) {
-            audioPlayer.play()
-                .then(() => {
-                    atualizarVisualTocando(true);
-                    if (statusPlayer) statusPlayer.textContent = `💜 Tocando agora: ${titulo}`;
-                    for (let i = 0; i < (isDispositivoTouch ? 6 : 12); i++) criarBrilho(e.clientX, e.clientY);
-                })
-                .catch(() => {
-                    atualizarVisualTocando(false);
-                    if (statusPlayer) {
-                        statusPlayer.textContent = `⚠️ Áudio de "${titulo}" ainda não disponível.`;
-                    }
-                });
+            // Garante recarregamento limpo no mobile caso o preload inicial tenha falhado ou sido bloqueado
+            if (audioPlayer.error || audioPlayer.readyState === 0 || !audioPlayer.currentSrc) {
+                audioPlayer.src = urlAudio;
+                audioPlayer.load();
+            }
+
+            executarPlayMobileSeguro(titulo);
+            for (let i = 0; i < (isDispositivoTouch ? 6 : 12); i++) criarBrilho(e.clientX, e.clientY);
         } else {
             audioPlayer.pause();
             atualizarVisualTocando(false);
@@ -520,15 +565,38 @@ if (audioPlayer && itensFaixa.length > 0) {
         });
     });
 
+    if ('mediaSession' in navigator) {
+        try {
+            navigator.mediaSession.setActionHandler('play', () => {
+                const titulo = itensFaixa[indiceFaixaAtual].getAttribute('data-titulo');
+                executarPlayMobileSeguro(titulo);
+            });
+            navigator.mediaSession.setActionHandler('pause', () => {
+                audioPlayer.pause();
+                atualizarVisualTocando(false);
+            });
+            navigator.mediaSession.setActionHandler('previoustrack', () => {
+                carregarFaixa(indiceFaixaAtual - 1, true);
+            });
+            navigator.mediaSession.setActionHandler('nexttrack', () => {
+                carregarFaixa(indiceFaixaAtual + 1, true);
+            });
+        } catch {
+            // Ignora ações não suportadas no dispositivo
+        }
+    }
+
     audioPlayer.addEventListener('loadedmetadata', () => {
         const duracaoFormatada = formatarTempo(audioPlayer.duration);
-        if (tempoTotalEl) tempoTotalEl.textContent = duracaoFormatada;
-        const spanDuracaoLista = itensFaixa[indiceFaixaAtual].querySelector('.faixa-duracao');
-        if (spanDuracaoLista) spanDuracaoLista.textContent = duracaoFormatada;
+        if (duracaoFormatada !== '00:00') {
+            if (tempoTotalEl) tempoTotalEl.textContent = duracaoFormatada;
+            const spanDuracaoLista = itensFaixa[indiceFaixaAtual].querySelector('.faixa-duracao');
+            if (spanDuracaoLista) spanDuracaoLista.textContent = duracaoFormatada;
+        }
     });
 
     audioPlayer.addEventListener('timeupdate', () => {
-        if (!audioPlayer.duration) return;
+        if (!isFinite(audioPlayer.duration) || audioPlayer.duration <= 0) return;
         const porcentagem = (audioPlayer.currentTime / audioPlayer.duration) * 100;
         if (barraProgressoPreenchida) barraProgressoPreenchida.style.width = `${porcentagem}%`;
         if (tempoAtualEl) tempoAtualEl.textContent = formatarTempo(audioPlayer.currentTime);
@@ -541,17 +609,26 @@ if (audioPlayer && itensFaixa.length > 0) {
     });
 
     audioPlayer.addEventListener('error', () => {
+        if (!usuarioInteragiu) return;
         const titulo = itensFaixa[indiceFaixaAtual].getAttribute('data-titulo');
+        const codigo = audioPlayer.error ? audioPlayer.error.code : 0;
         atualizarVisualTocando(false);
+
         if (statusPlayer) {
-            statusPlayer.textContent = `⚠️ Áudio de "${titulo}" ainda não disponível.`;
+            if (codigo === 3 || codigo === 4) {
+                statusPlayer.textContent = `⚠️ Formato/codec incompatível com este celular em "${titulo}" (código ${codigo}).`;
+            } else if (codigo === 2) {
+                statusPlayer.textContent = `⚠️ Falha de rede ao baixar "${titulo}".`;
+            } else {
+                statusPlayer.textContent = `⚠️ Erro ao carregar "${titulo}" (código ${codigo}).`;
+            }
         }
     });
 
     // Busca na barra de progresso por clique ou arrasto com o dedo
     if (barraProgressoFundo) {
         const atualizarTempoPorPosicao = (clientX) => {
-            if (!audioPlayer.duration) return;
+            if (!isFinite(audioPlayer.duration) || audioPlayer.duration <= 0) return;
             const rect = barraProgressoFundo.getBoundingClientRect();
             const proporcao = Math.min(Math.max((clientX - rect.left) / rect.width, 0), 1);
             audioPlayer.currentTime = proporcao * audioPlayer.duration;
