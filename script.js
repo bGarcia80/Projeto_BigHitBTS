@@ -301,9 +301,31 @@ if (itensDestaque.length > 0 && detalheDestaque) {
 }
 
 // ==========================================
-// 5. ANIMAÇÕES INTERATIVAS NOS CARDS DOS INTEGRANTES
+// 5. ANIMAÇÕES INTERATIVAS NOS CARDS DOS INTEGRANTES E BOTÃO BTS
 // ==========================================
 const cardsIntegrantes = document.querySelectorAll('.integrante-card');
+const btnFanchantBts = document.getElementById('btn-fanchant-bts');
+
+function mostrarFanchantFlutuante(texto, x, y) {
+    if (!texto) return;
+
+    const etiqueta = document.createElement('span');
+    etiqueta.classList.add('fanchant-flutuante');
+    etiqueta.textContent = texto;
+
+    // Impede que o balão seja cortado nas bordas da tela do celular
+    const margemSegura = 95;
+    const posX = Math.min(Math.max(x, margemSegura), window.innerWidth - margemSegura);
+    const posY = Math.max(y, 70);
+
+    etiqueta.style.left = `${posX}px`;
+    etiqueta.style.top = `${posY}px`;
+    document.body.appendChild(etiqueta);
+
+    setTimeout(() => {
+        etiqueta.remove();
+    }, 1100);
+}
 
 cardsIntegrantes.forEach((card, index) => {
     card.style.transitionDelay = `${index * 80}ms`;
@@ -334,35 +356,45 @@ cardsIntegrantes.forEach((card, index) => {
 
     card.addEventListener('click', (e) => {
         card.style.transitionDelay = '0ms';
-        card.classList.remove('pulsando');
+        card.classList.remove('pulsando', 'pulo-bts');
         void card.offsetWidth;
         card.classList.add('pulsando');
 
-        const textoFanchant = card.getAttribute('data-fanchant');
-        if (textoFanchant) {
-            const etiqueta = document.createElement('span');
-            etiqueta.classList.add('fanchant-flutuante');
-            etiqueta.textContent = textoFanchant;
-
-            // Impede que o balão seja cortado nas bordas da tela do celular
-            const margemSegura = 95;
-            const posX = Math.min(Math.max(e.clientX, margemSegura), window.innerWidth - margemSegura);
-            const posY = Math.max(e.clientY, 70);
-
-            etiqueta.style.left = `${posX}px`;
-            etiqueta.style.top = `${posY}px`;
-            document.body.appendChild(etiqueta);
-
-            setTimeout(() => {
-                etiqueta.remove();
-            }, 1100);
-        }
+        mostrarFanchantFlutuante(card.getAttribute('data-fanchant'), e.clientX, e.clientY);
 
         for (let i = 0; i < (isDispositivoTouch ? 8 : 18); i++) {
             criarBrilho(e.clientX, e.clientY);
         }
     });
 });
+
+if (btnFanchantBts) {
+    btnFanchantBts.addEventListener('click', (e) => {
+        const rect = btnFanchantBts.getBoundingClientRect();
+        const cliqueX = e.clientX || rect.left + rect.width / 2;
+        const cliqueY = e.clientY || rect.top + rect.height / 2;
+
+        // Exibe apenas a escrita BTS
+        mostrarFanchantFlutuante('BTS! 💜', cliqueX, cliqueY);
+
+        // Destaca e faz todos os 7 cards pularem juntos
+        cardsIntegrantes.forEach((card) => {
+            card.style.transitionDelay = '0ms';
+            card.classList.remove('pulsando', 'pulo-bts');
+            void card.offsetWidth;
+            card.classList.add('pulo-bts');
+
+            clearTimeout(card._timerPuloBts);
+            card._timerPuloBts = setTimeout(() => {
+                card.classList.remove('pulo-bts');
+            }, 620);
+        });
+
+        for (let i = 0; i < (isDispositivoTouch ? 10 : 22); i++) {
+            criarBrilho(cliqueX, cliqueY);
+        }
+    });
+}
 
 // ==========================================
 // 6. PLAYER EMBUTIDO DE MÚSICAS DO ARIRANG

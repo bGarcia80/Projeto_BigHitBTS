@@ -419,6 +419,30 @@ main {
     100% { transform: scale(1); }
 }
 
+/* ANIMAÇÃO DE PULO E DESTAQUE SIMULTÂNEO AO CLICAR NO BOTÃO BTS */
+.integrante-card.pulo-bts {
+    animation: puloTodosCards 0.6s cubic-bezier(0.28, 0.84, 0.42, 1);
+    border-color: #ffd166;
+}
+
+@keyframes puloTodosCards {
+    0% {
+        transform: translateY(0) scale(1);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    }
+    40% {
+        transform: translateY(-16px) scale(1.045);
+        box-shadow: 0 18px 36px rgba(255, 209, 102, 0.65), 0 0 26px #c77dff;
+    }
+    70% {
+        transform: translateY(-4px) scale(1.01);
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    }
+}
+
 .card-reflexo {
     position: absolute;
     inset: 0;
@@ -482,7 +506,32 @@ main {
     text-align: left;
 }
 
-/* TEXTO FLUTUANTE DO FANCHANT AO TOCAR/CLICAR NO CARD */
+/* BOTÃO FANCHANT GRUPO BTS */
+.bts-fanchant-acao {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-fanchant-bts {
+    background: linear-gradient(135deg, #5a189a, #9d4edd);
+    color: #ffffff;
+    border: 2px solid #ffd166;
+    padding: 14px 38px;
+    border-radius: 999px;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    box-shadow: 0 8px 24px rgba(123, 44, 191, 0.55);
+    transition: transform 0.2s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.btn-fanchant-bts:active {
+    transform: scale(0.94);
+}
+
+/* TEXTO FLUTUANTE DO FANCHANT AO TOCAR/CLICAR NO CARD OU BOTÃO BTS */
 .fanchant-flutuante {
     position: fixed;
     pointer-events: none;
@@ -1053,6 +1102,12 @@ footer p + p {
 
     .integrante-card:hover .integrante-foto img {
         transform: scale(1.06);
+    }
+
+    .btn-fanchant-bts:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 12px 30px rgba(255, 209, 102, 0.45), 0 0 22px #c77dff;
+        filter: brightness(1.1);
     }
 
     .historia-card:hover {
