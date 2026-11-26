@@ -34,8 +34,15 @@
                 <li><a href="#topo">Home</a></li>
                 <li><a href="#sobre">Quem somos</a></li>
                 <li><a href="#integrantes">Integrantes</a></li>
+                <li><a href="#bt21">BT21</a></li>
                 <li><a href="#historia">Sobre o BTS</a></li>
+                <li><a href="#videos">Vídeos</a></li>
                 <li><a href="#musicas">Arirang</a></li>
+                <li>
+                    <button type="button" class="btn-guia-army" id="btn-abrir-guia" title="Comandos do Portal">
+                        💜 ARMY
+                    </button>
+                </li>
                 <li>
                     <a href="https://bgarcia80.github.io/" target="_blank" rel="noopener noreferrer"
                         class="btn-portfolio">
@@ -45,6 +52,78 @@
             </ul>
         </nav>
     </header>
+
+    <!-- JANELA POPUP FECHÁVEL DE COMANDOS DO PORTAL -->
+    <div class="modal-overlay" id="modal-comandos" aria-hidden="true">
+        <div class="modal-caixa" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+            <div class="modal-cabecalho">
+                <div>
+                    <span class="modal-selo">BIGHIT MUSIC • INTERATIVO</span>
+                    <h2 id="modal-titulo">Comandos do Portal</h2>
+                </div>
+                <button type="button" class="btn-fechar-modal" id="btn-fechar-modal"
+                    aria-label="Fechar janela">✕</button>
+            </div>
+
+            <p class="modal-descricao">
+                Digite qualquer palavra abaixo no teclado ou toque sobre o item para ativar os efeitos visuais do
+                portal:
+            </p>
+
+            <ul class="lista-comandos">
+                <li class="comando-item" data-comando="borahae">
+                    <div class="comando-info">
+                        <strong>borahae <span class="ou-sep">ou</span> army</strong>
+                        <span>Alterna o modo palco ARMY Bomb e luzes roxas. (Também ativa com 7 toques no logo
+                            BIGHIT).</span>
+                    </div>
+                    <span class="comando-tag">Ativar</span>
+                </li>
+
+                <li class="comando-item" data-comando="2013">
+                    <div class="comando-info">
+                        <strong>2013 <span class="ou-sep">ou</span> 130613</strong>
+                        <span>Dispara a celebração especial da data de estreia do BTS.</span>
+                    </div>
+                    <span class="comando-tag">Ativar</span>
+                </li>
+
+                <li class="comando-item" data-comando="bt21">
+                    <div class="comando-info">
+                        <strong>bt21</strong>
+                        <span>Faz os 8 personagens do universo BT21 desfilarem pela tela.</span>
+                    </div>
+                    <span class="comando-tag">Ativar</span>
+                </li>
+
+                <li class="comando-item" data-comando="arirang">
+                    <div class="comando-info">
+                        <strong>arirang</strong>
+                        <span>Ativa o vinil dourado em rotação rápida e inicia a música. (Também ativa com 5 toques no
+                            disco).</span>
+                    </div>
+                    <span class="comando-tag">Ativar</span>
+                </li>
+
+                <li class="comando-item" data-comando="samara">
+                    <div class="comando-info">
+                        <strong>samara</strong>
+                        <span>Exibe o destaque especial da indentação de dois dedos. (Também ativa com 3 toques nos
+                            parágrafos).</span>
+                    </div>
+                    <span class="comando-tag">Ativar</span>
+                </li>
+
+                <li class="comando-item" data-comando="konami">
+                    <div class="comando-info">
+                        <strong>↑ ↑ ↓ ↓ ← → ← → B A</strong>
+                        <span>Ativa a onda sincronizada em todos os cards do BTS e do BT21.</span>
+                    </div>
+                    <span class="comando-tag">Ativar</span>
+                </li>
+            </ul>
+        </div>
+    </div>
 
     <main>
         <!-- SLIDESHOW AUTOMÁTICO PRINCIPAL -->
@@ -237,6 +316,142 @@
             </div>
         </section>
 
+        <!-- SEÇÃO PERSONAGENS BT21 -->
+        <section class="secao-bt21" id="bt21">
+            <h1>Universo BT21</h1>
+            <p class="integrantes-intro">Toque ou passe o cursor nos cards para conhecer e chamar cada personagem criado
+                pelo BTS.</p>
+
+            <div class="integrantes-grid">
+                <!-- KOYA -->
+                <article class="integrante-card bt21-card revelar" data-fanchant="KOYA! 💜">
+                    <div class="card-reflexo"></div>
+                    <div class="integrante-foto bt21-foto">
+                        <img src="./img/koya.png" alt="KOYA - Personagem BT21" loading="lazy">
+                    </div>
+                    <div class="integrante-info">
+                        <span class="integrante-cargo">Criado por RM</span>
+                        <h3>KOYA</h3>
+                        <span class="integrante-nome-real">Coala Pensador</span>
+                        <p>Brilhante, sensível e sempre cheio de ideias profundas. Parece estar dormindo o tempo todo,
+                            mas na verdade está pensando bastante.</p>
+                    </div>
+                </article>
+
+                <!-- RJ -->
+                <article class="integrante-card bt21-card revelar" data-fanchant="RJ! 💜">
+                    <div class="card-reflexo"></div>
+                    <div class="integrante-foto bt21-foto">
+                        <img src="./img/rj.png" alt="RJ - Personagem BT21" loading="lazy">
+                    </div>
+                    <div class="integrante-info">
+                        <span class="integrante-cargo">Criado por Jin</span>
+                        <h3>RJ</h3>
+                        <span class="integrante-nome-real">Alpaca Gentil</span>
+                        <p>Ama cozinhar, comer e cuidar de todos ao redor. Sempre educado e acolhedor, veste sua parka
+                            fofa sempre que sente frio.</p>
+                    </div>
+                </article>
+
+                <!-- SHOOKY -->
+                <article class="integrante-card bt21-card revelar" data-fanchant="SHOOKY! 💜">
+                    <div class="card-reflexo"></div>
+                    <div class="integrante-foto bt21-foto">
+                        <img src="./img/shooky.png" alt="SHOOKY - Personagem BT21" loading="lazy">
+                    </div>
+                    <div class="integrante-info">
+                        <span class="integrante-cargo">Criado por SUGA</span>
+                        <h3>SHOOKY</h3>
+                        <span class="integrante-nome-real">Biscoito Travesso</span>
+                        <p>Pequeno no tamanho, mas gigante nas travessuras. Adora pregar peças nos amigos e tem
+                            verdadeiro pavor de leite.</p>
+                    </div>
+                </article>
+
+                <!-- MANG -->
+                <article class="integrante-card bt21-card revelar" data-fanchant="MANG! 💜">
+                    <div class="card-reflexo"></div>
+                    <div class="integrante-foto bt21-foto">
+                        <img src="./img/mang.png" alt="MANG - Personagem BT21" loading="lazy">
+                    </div>
+                    <div class="integrante-info">
+                        <span class="integrante-cargo">Criado por j-hope</span>
+                        <h3>MANG</h3>
+                        <span class="integrante-nome-real">Dançarino Misterioso</span>
+                        <p>Quando começa a dançar, MANG brilha com energia contagiante e passos impecáveis, escondendo
+                            sua timidez por trás da máscara.</p>
+                    </div>
+                </article>
+
+                <!-- CHIMMY -->
+                <article class="integrante-card bt21-card revelar" data-fanchant="CHIMMY! 💜">
+                    <div class="card-reflexo"></div>
+                    <div class="integrante-foto bt21-foto">
+                        <img src="./img/chimmy.png" alt="CHIMMY - Personagem BT21" loading="lazy">
+                    </div>
+                    <div class="integrante-info">
+                        <span class="integrante-cargo">Criado por Jimin</span>
+                        <h3>CHIMMY</h3>
+                        <span class="integrante-nome-real">Filhote Apaixonado</span>
+                        <p>Sempre de moletom amarelo, é pura dedicação e entusiasmo. Coloca todo o coração em tudo o que
+                            faz e adora tocar gaita.</p>
+                    </div>
+                </article>
+
+                <!-- TATA -->
+                <article class="integrante-card bt21-card revelar" data-fanchant="TATA! 💜">
+                    <div class="card-reflexo"></div>
+                    <div class="integrante-foto bt21-foto">
+                        <img src="./img/tata.png" alt="TATA - Personagem BT21" loading="lazy">
+                    </div>
+                    <div class="integrante-info">
+                        <span class="integrante-cargo">Criado por V</span>
+                        <h3>TATA</h3>
+                        <span class="integrante-nome-real">Príncipe do Planeta BT</span>
+                        <p>Curioso e cheio de imaginação, possui o poder de esticar o corpo de formas incríveis para
+                            espalhar amor por todo o universo.</p>
+                    </div>
+                </article>
+
+                <!-- COOKY -->
+                <article class="integrante-card bt21-card revelar" data-fanchant="COOKY! 💜">
+                    <div class="card-reflexo"></div>
+                    <div class="integrante-foto bt21-foto">
+                        <img src="./img/cooky.png" alt="COOKY - Personagem BT21" loading="lazy">
+                    </div>
+                    <div class="integrante-info">
+                        <span class="integrante-cargo">Criado por Jung Kook</span>
+                        <h3>COOKY</h3>
+                        <span class="integrante-nome-real">Coelho Forte</span>
+                        <p>Por trás da aparência fofa, esconde uma força surpreendente e muita determinação para superar
+                            qualquer desafio.</p>
+                    </div>
+                </article>
+
+                <!-- VAN -->
+                <article class="integrante-card bt21-card revelar" data-fanchant="VAN! 💜">
+                    <div class="card-reflexo"></div>
+                    <div class="integrante-foto bt21-foto">
+                        <img src="./img/van.png" alt="VAN - Guardião BT21" loading="lazy">
+                    </div>
+                    <div class="integrante-info">
+                        <span class="integrante-cargo">Guardião • ARMY</span>
+                        <h3>VAN</h3>
+                        <span class="integrante-nome-real">Robô Protetor</span>
+                        <p>O robô espacial que protege o BT21 a qualquer hora e em qualquer lugar, simbolizando o apoio
+                            eterno do ARMY.</p>
+                    </div>
+                </article>
+            </div>
+
+            <!-- BOTÃO FANCHANT GRUPO BT21 -->
+            <div class="bts-fanchant-acao revelar">
+                <button type="button" class="btn-fanchant-bts" id="btn-fanchant-bt21">
+                    💜 BT21!
+                </button>
+            </div>
+        </section>
+
         <!-- SEÇÃO SOBRE O BTS -->
         <section class="secao-historia revelar" id="historia">
             <h1>Sobre o BTS</h1>
@@ -286,13 +501,63 @@
             </div>
         </section>
 
+        <!-- SEÇÃO DE VÍDEOS - ERA ARIRANG -->
+        <section class="secao-videos revelar" id="videos">
+            <h1>Vídeos • Era Arirang</h1>
+            <p class="videos-subtitulo">Assista aos vídeos da era Arirang diretamente no portal.</p>
+
+            <div class="videos-lista">
+                <!-- 1. Hooligan -->
+                <article class="video-card">
+                    <div class="video-cabecalho">
+                        <span class="video-selo">01 • VÍDEO</span>
+                        <h2>Hooligan</h2>
+                    </div>
+                    <div class="video-frame-wrapper">
+                        <iframe src="https://drive.google.com/file/d/17fU0FZs8IDbxVKo7zf3EmTbQW4qS_tKd/preview"
+                            width="640" height="480" title="BTS - Hooligan" allow="autoplay; fullscreen" allowfullscreen
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                </article>
+
+                <!-- 2. 2.0 / No. 29 -->
+                <article class="video-card">
+                    <div class="video-cabecalho">
+                        <span class="video-selo">02 • VÍDEO</span>
+                        <h2>2.0 / No. 29</h2>
+                    </div>
+                    <div class="video-frame-wrapper">
+                        <iframe src="https://drive.google.com/file/d/10AgwQPwFTYc9ScJJy0k81xdhAHKFPwy1/preview"
+                            width="640" height="480" title="BTS - 2.0 / No. 29" allow="autoplay; fullscreen"
+                            allowfullscreen loading="lazy">
+                        </iframe>
+                    </div>
+                </article>
+
+                <!-- 3. SWIM -->
+                <article class="video-card">
+                    <div class="video-cabecalho">
+                        <span class="video-selo">03 • VÍDEO</span>
+                        <h2>SWIM</h2>
+                    </div>
+                    <div class="video-frame-wrapper">
+                        <iframe src="https://drive.google.com/file/d/1Hy53sxolkGax-WCTwZeiQ-ZChc1oLxrY/preview"
+                            width="640" height="480" title="BTS - SWIM" allow="autoplay; fullscreen" allowfullscreen
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                </article>
+            </div>
+        </section>
+
         <!-- PLAYER EMBUTIDO DE MÚSICAS DO ARIRANG -->
         <section class="secao-musicas revelar" id="musicas">
             <h1>Músicas • Era Arirang</h1>
             <p class="musicas-subtitulo">Ouça as faixas do álbum Arirang diretamente no portal.</p>
 
             <div class="player-arirang-box" id="player-arirang">
-                <audio id="audio-player" preload="metadata"></audio>
+                <audio id="audio-player" preload="auto" playsinline webkit-playsinline></audio>
 
                 <!-- Painel Principal do Player -->
                 <div class="player-painel">

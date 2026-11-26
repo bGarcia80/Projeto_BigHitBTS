@@ -31,7 +31,9 @@ main {
 #topo,
 #sobre,
 #integrantes,
+#bt21,
 #historia,
+#videos,
 #musicas {
     scroll-margin-top: 95px;
 }
@@ -58,14 +60,14 @@ main {
 }
 
 .navbar {
-    max-width: 1150px;
+    max-width: 1180px;
     margin: 0 auto;
-    padding: 12px 25px;
+    padding: 12px 22px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
-    gap: 15px;
+    gap: 12px;
 }
 
 .logo-link {
@@ -74,7 +76,7 @@ main {
 }
 
 #bighit {
-    width: 125px;
+    width: 120px;
     height: auto;
     display: block;
     transition: transform 0.25s ease;
@@ -135,7 +137,7 @@ main {
 .navegaMenu {
     list-style: none;
     display: flex;
-    gap: 10px;
+    gap: 6px;
     align-items: center;
     flex-wrap: wrap;
 }
@@ -144,9 +146,9 @@ main {
     text-decoration: none;
     color: #180c2e;
     font-family: 'Trebuchet MS', sans-serif;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 700;
-    padding: 8px 13px;
+    padding: 8px 10px;
     border-radius: 8px;
     display: block;
     transition: background-color 0.25s, color 0.25s, transform 0.2s ease, box-shadow 0.25s ease;
@@ -157,13 +159,41 @@ main {
     color: #ffffff;
 }
 
+/* BOTÃO GUIA ARMY NA BARRA SUPERIOR */
+.btn-guia-army {
+    background: #ffffff;
+    color: #5a189a;
+    border: 2px solid #7b2cbf;
+    border-radius: 999px;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 800;
+    padding: 6px 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+.btn-guia-army:hover {
+    background-color: #7b2cbf;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(123, 44, 191, 0.35);
+}
+
+.btn-guia-army:active {
+    transform: scale(0.95);
+}
+
 /* BOTÃO PORTFÓLIO NA BARRA SUPERIOR */
 .navegaMenu li a.btn-portfolio {
     background: linear-gradient(135deg, #5a189a, #9d4edd);
     color: #ffffff;
     border: 2px solid #ffd166;
     border-radius: 999px;
-    padding: 7px 18px;
+    padding: 6px 16px;
     box-shadow: 0 3px 12px rgba(123, 44, 191, 0.35);
 }
 
@@ -176,6 +206,168 @@ main {
 
 .navegaMenu li a.btn-portfolio:active {
     transform: scale(0.96);
+}
+
+/* ==========================================
+   JANELA POPUP FECHÁVEL DE COMANDOS DO PORTAL
+   ========================================== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10005;
+    background: rgba(8, 3, 18, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.28s ease, visibility 0.28s ease;
+}
+
+.modal-overlay.aberto {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-caixa {
+    width: 100%;
+    max-width: 540px;
+    max-height: 85vh;
+    overflow-y: auto;
+    background: linear-gradient(180deg, #211040 0%, #130826 100%);
+    border: 2px solid #c77dff;
+    border-radius: 20px;
+    padding: 26px 24px;
+    box-shadow: 0 20px 55px rgba(0, 0, 0, 0.75), 0 0 32px rgba(157, 78, 221, 0.45);
+    transform: translateY(16px) scale(0.96);
+    transition: transform 0.28s ease;
+}
+
+.modal-overlay.aberto .modal-caixa {
+    transform: translateY(0) scale(1);
+}
+
+.modal-cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 12px;
+}
+
+.modal-selo {
+    display: inline-block;
+    background: rgba(123, 44, 191, 0.45);
+    border: 1px solid #c77dff;
+    color: #ffd166;
+    font-size: 0.74rem;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    padding: 3px 10px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+}
+
+.modal-cabecalho h2 {
+    font-size: 1.55rem;
+    color: #ffffff;
+    font-family: 'Trebuchet MS', sans-serif;
+}
+
+.btn-fechar-modal {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(199, 125, 255, 0.45);
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    font-size: 1.15rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-fechar-modal:hover {
+    background-color: #7b2cbf;
+    border-color: #ffd166;
+}
+
+.btn-fechar-modal:active {
+    transform: scale(0.92);
+}
+
+.modal-descricao {
+    color: #d8c7f5;
+    font-size: 0.96rem;
+    line-height: 1.5;
+    margin-bottom: 18px;
+}
+
+.lista-comandos {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.comando-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 16px;
+    border-radius: 13px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(199, 125, 255, 0.3);
+    transition: transform 0.18s ease, background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.comando-item:hover {
+    background: rgba(123, 44, 191, 0.35);
+    border-color: #ffd166;
+    transform: translateX(4px);
+}
+
+.comando-item:active {
+    transform: scale(0.98);
+}
+
+.comando-info strong {
+    display: block;
+    color: #ffd166;
+    font-size: 1.05rem;
+    letter-spacing: 0.5px;
+    margin-bottom: 3px;
+}
+
+.comando-info .ou-sep {
+    color: #c77dff;
+    font-weight: normal;
+    font-size: 0.88rem;
+}
+
+.comando-info span {
+    display: block;
+    color: #ece4ff;
+    font-size: 0.88rem;
+    line-height: 1.45;
+}
+
+.comando-tag {
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #5a189a, #9d4edd);
+    color: #ffffff;
+    border: 1px solid #ffd166;
+    border-radius: 999px;
+    padding: 5px 13px;
+    font-size: 0.8rem;
+    font-weight: bold;
 }
 
 /* SLIDESHOW BTS (BANNER PRINCIPAL E GALERIA DA BIOGRAFIA) */
@@ -262,7 +454,9 @@ main {
 /* TÍTULOS DE SEÇÃO */
 .secao-sobre h1,
 .secao-integrantes h1,
+.secao-bt21 h1,
 .secao-historia h1,
+.secao-videos h1,
 .secao-musicas h1 {
     font-size: clamp(1.85rem, 4.5vw, 2.5rem);
     color: #ffffff;
@@ -316,9 +510,17 @@ main {
 }
 
 @keyframes giroSuave {
-    0% { transform: scale(1) rotate(0deg); }
-    50% { transform: scale(1.08) rotate(5deg); }
-    100% { transform: scale(1) rotate(0deg); }
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    50% {
+        transform: scale(1.08) rotate(5deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
 }
 
 .sobre-logo-box img {
@@ -337,7 +539,7 @@ main {
     margin-bottom: 12px;
 }
 
-.sobre-texto p + p {
+.sobre-texto p+p {
     margin-top: 12px;
 }
 
@@ -391,14 +593,16 @@ main {
     transition: opacity 0.25s ease;
 }
 
-/* SEÇÃO INTEGRANTES DO BTS */
-.secao-integrantes {
+/* SEÇÃO INTEGRANTES DO BTS E PERSONAGENS BT21 */
+.secao-integrantes,
+.secao-bt21 {
     max-width: 1050px;
     margin: 50px auto 20px auto;
     padding: 0 20px;
 }
 
-.secao-integrantes h1 {
+.secao-integrantes h1,
+.secao-bt21 h1 {
     margin-bottom: 12px;
 }
 
@@ -441,12 +645,21 @@ main {
 }
 
 @keyframes pulsoCard {
-    0% { transform: scale(1); }
-    45% { transform: scale(1.04); box-shadow: 0 0 28px #e0aaff; }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+    }
+
+    45% {
+        transform: scale(1.04);
+        box-shadow: 0 0 28px #e0aaff;
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
-/* ANIMAÇÃO DE PULO E DESTAQUE SIMULTÂNEO AO CLICAR NO BOTÃO BTS */
+/* ANIMAÇÃO DE PULO E DESTAQUE SIMULTÂNEO AO CLICAR NO BOTÃO BTS / BT21 */
 .integrante-card.pulo-bts {
     animation: puloTodosCards 0.6s cubic-bezier(0.28, 0.84, 0.42, 1);
     border-color: #ffd166;
@@ -457,13 +670,16 @@ main {
         transform: translateY(0) scale(1);
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
     }
+
     40% {
         transform: translateY(-16px) scale(1.045);
         box-shadow: 0 18px 36px rgba(255, 209, 102, 0.65), 0 0 26px #c77dff;
     }
+
     70% {
         transform: translateY(-4px) scale(1.01);
     }
+
     100% {
         transform: translateY(0) scale(1);
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
@@ -495,6 +711,17 @@ main {
     object-position: top center;
     display: block;
     transition: transform 0.4s ease;
+}
+
+.bt21-foto {
+    background: radial-gradient(circle at center, #2d1457 0%, #160a2c 100%);
+    padding: 16px;
+}
+
+.bt21-foto img {
+    object-fit: contain;
+    object-position: center;
+    border-radius: 10px;
 }
 
 .integrante-info {
@@ -533,7 +760,7 @@ main {
     text-align: left;
 }
 
-/* BOTÃO FANCHANT GRUPO BTS */
+/* BOTÃO FANCHANT GRUPO BTS E BT21 */
 .bts-fanchant-acao {
     margin-top: 30px;
     display: flex;
@@ -558,7 +785,7 @@ main {
     transform: scale(0.94);
 }
 
-/* TEXTO FLUTUANTE DO FANCHANT AO TOCAR/CLICAR NO CARD OU BOTÃO BTS */
+/* TEXTO FLUTUANTE DO FANCHANT AO TOCAR/CLICAR NO CARD OU BOTÃO BTS/BT21 */
 .fanchant-flutuante {
     position: fixed;
     pointer-events: none;
@@ -582,10 +809,12 @@ main {
         opacity: 0;
         transform: translate(-50%, -20%) scale(0.75);
     }
+
     20% {
         opacity: 1;
         transform: translate(-50%, -50%) scale(1.05);
     }
+
     100% {
         opacity: 0;
         transform: translate(-50%, -140%) scale(1);
@@ -625,16 +854,98 @@ main {
     margin-bottom: 16px;
 }
 
-.historia-card p + p {
+.historia-card p+p {
     margin-top: 14px;
 }
 
 .twofingers {
     text-align: justify;
-    text-indent: 30px; /* 2 fingers, Profª Samara */
+    text-indent: 30px;
+    /* 2 fingers, Profª Samara */
     line-height: 1.75;
     font-size: 1.08rem;
     color: #f1ebff;
+}
+
+/* ==========================================
+   SEÇÃO DE VÍDEOS - ERA ARIRANG
+   ========================================== */
+.secao-videos {
+    max-width: 1050px;
+    margin: 55px auto;
+    padding: 0 20px;
+}
+
+.secao-videos h1 {
+    margin-bottom: 10px;
+}
+
+.videos-subtitulo {
+    color: #d8c7f5;
+    font-size: 1.05rem;
+    margin-bottom: 26px;
+}
+
+.videos-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.video-card {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(199, 125, 255, 0.38);
+    border-radius: 18px;
+    padding: 26px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(123, 44, 191, 0.25);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-cabecalho {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.video-selo {
+    display: inline-block;
+    background-color: rgba(123, 44, 191, 0.45);
+    border: 1px solid #c77dff;
+    color: #ffd166;
+    font-size: 0.78rem;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    padding: 4px 11px;
+    border-radius: 6px;
+}
+
+.video-cabecalho h2 {
+    font-size: clamp(1.25rem, 3.5vw, 1.65rem);
+    color: #ffffff;
+    font-family: 'Trebuchet MS', sans-serif;
+}
+
+.video-frame-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 14px;
+    overflow: hidden;
+    background-color: #0b0417;
+    border: 2px solid rgba(199, 125, 255, 0.4);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
+}
+
+.video-frame-wrapper iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
 }
 
 /* ==========================================
@@ -702,8 +1013,13 @@ main {
 }
 
 @keyframes girarDisco {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .disco-vinil img {
@@ -741,15 +1057,36 @@ main {
     transition: height 0.2s ease;
 }
 
-.equalizador.tocando span:nth-child(1) { animation: ondaSom 0.6s infinite ease-in-out; }
-.equalizador.tocando span:nth-child(2) { animation: ondaSom 0.45s infinite ease-in-out 0.1s; }
-.equalizador.tocando span:nth-child(3) { animation: ondaSom 0.7s infinite ease-in-out 0.2s; }
-.equalizador.tocando span:nth-child(4) { animation: ondaSom 0.5s infinite ease-in-out 0.15s; }
-.equalizador.tocando span:nth-child(5) { animation: ondaSom 0.65s infinite ease-in-out 0.05s; }
+.equalizador.tocando span:nth-child(1) {
+    animation: ondaSom 0.6s infinite ease-in-out;
+}
+
+.equalizador.tocando span:nth-child(2) {
+    animation: ondaSom 0.45s infinite ease-in-out 0.1s;
+}
+
+.equalizador.tocando span:nth-child(3) {
+    animation: ondaSom 0.7s infinite ease-in-out 0.2s;
+}
+
+.equalizador.tocando span:nth-child(4) {
+    animation: ondaSom 0.5s infinite ease-in-out 0.15s;
+}
+
+.equalizador.tocando span:nth-child(5) {
+    animation: ondaSom 0.65s infinite ease-in-out 0.05s;
+}
 
 @keyframes ondaSom {
-    0%, 100% { height: 6px; }
-    50% { height: 22px; }
+
+    0%,
+    100% {
+        height: 6px;
+    }
+
+    50% {
+        height: 22px;
+    }
 }
 
 .player-controles-area {
@@ -787,7 +1124,6 @@ main {
     font-variant-numeric: tabular-nums;
 }
 
-/* Área de toque maior (28px de altura) para facilitar arrastar com o dedo no celular */
 .progresso-touch-area {
     flex: 1;
     height: 28px;
@@ -988,6 +1324,133 @@ main {
     flex-shrink: 0;
 }
 
+/* ==========================================
+   EFEITOS INTERATIVOS DO PORTAL
+   ========================================== */
+.toast-easter-egg {
+    position: fixed;
+    top: calc(88px + env(safe-area-inset-top));
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    z-index: 10006;
+    background: linear-gradient(135deg, #240046, #7b2cbf);
+    color: #ffffff;
+    border: 2px solid #ffd166;
+    border-radius: 999px;
+    padding: 12px 24px;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 0.98rem;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65), 0 0 22px rgba(255, 209, 102, 0.55);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    max-width: 92vw;
+}
+
+.toast-easter-egg.visivel {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+body.modo-army-bomb {
+    background: radial-gradient(circle at 50% 20%, #3c096c 0%, #16062b 55%, #070212 100%);
+}
+
+body.modo-army-bomb .inicio {
+    border-bottom-color: #ffd166;
+    box-shadow: 0 0 28px rgba(199, 125, 255, 0.85);
+}
+
+body.modo-army-bomb .integrante-card {
+    border-color: rgba(255, 209, 102, 0.55);
+    box-shadow: 0 0 24px rgba(199, 125, 255, 0.4);
+}
+
+.particula-chuva {
+    position: fixed;
+    top: -40px;
+    z-index: 10001;
+    pointer-events: none;
+    user-select: none;
+    animation: cairParticula linear forwards;
+}
+
+@keyframes cairParticula {
+    0% {
+        transform: translateY(0) rotate(0deg) scale(0.8);
+        opacity: 1;
+    }
+
+    85% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(110vh) rotate(360deg) scale(1.25);
+        opacity: 0;
+    }
+}
+
+.disco-vinil.modo-turbo {
+    animation-duration: 2.2s !important;
+    border-color: #ffd166 !important;
+    box-shadow: 0 0 40px rgba(255, 209, 102, 0.95), 0 0 65px rgba(199, 125, 255, 0.7) !important;
+}
+
+.caravana-bt21 {
+    position: fixed;
+    bottom: 18px;
+    left: -100%;
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: rgba(24, 12, 46, 0.9);
+    border: 2px solid #ffd166;
+    border-radius: 999px;
+    padding: 10px 22px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.7);
+    pointer-events: none;
+    animation: atravessarTela 6.5s linear forwards;
+}
+
+.caravana-bt21 img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    animation: balancoCaravana 0.45s infinite alternate ease-in-out;
+}
+
+.caravana-bt21 img:nth-child(even) {
+    animation-delay: 0.22s;
+}
+
+@keyframes atravessarTela {
+    0% {
+        left: -480px;
+    }
+
+    100% {
+        left: 105vw;
+    }
+}
+
+@keyframes balancoCaravana {
+    from {
+        transform: translateY(0) rotate(-6deg);
+    }
+
+    to {
+        transform: translateY(-7px) rotate(6deg);
+    }
+}
+
+.letreiro-trilha.turbo {
+    animation-duration: 5s !important;
+}
+
 /* ANIMAÇÃO DE REVELAR AO ROLAR */
 .revelar {
     opacity: 0;
@@ -1038,6 +1501,7 @@ main {
     0% {
         transform: translateX(0);
     }
+
     100% {
         transform: translateX(-50%);
     }
@@ -1054,7 +1518,7 @@ footer {
     padding: 26px 20px calc(26px + env(safe-area-inset-bottom));
 }
 
-footer p + p {
+footer p+p {
     margin-top: 8px;
     color: #ffd166;
 }
@@ -1097,6 +1561,7 @@ footer p + p {
         opacity: 1;
         transform: translate(-50%, -50%) scale(0.5) rotate(0deg);
     }
+
     100% {
         opacity: 0;
         transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.4) rotate(180deg);
@@ -1137,7 +1602,8 @@ footer p + p {
         filter: brightness(1.1);
     }
 
-    .historia-card:hover {
+    .historia-card:hover,
+    .video-card:hover {
         border-color: #ffd166;
         box-shadow: 0 14px 34px rgba(123, 44, 191, 0.4);
     }
@@ -1163,7 +1629,7 @@ footer p + p {
 /* ==========================================
    RESPONSIVIDADE PARA TABLETS E CELULARES
    ========================================== */
-@media (max-width: 860px) {
+@media (max-width: 980px) {
     body {
         padding-top: calc(68px + env(safe-area-inset-top));
     }
@@ -1171,7 +1637,9 @@ footer p + p {
     #topo,
     #sobre,
     #integrantes,
+    #bt21,
     #historia,
+    #videos,
     #musicas {
         scroll-margin-top: 82px;
     }
@@ -1225,6 +1693,12 @@ footer p + p {
         border-radius: 10px;
     }
 
+    .btn-guia-army {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 1.02rem;
+    }
+
     .navegaMenu li a.btn-portfolio {
         margin-top: 4px;
         padding: 12px 16px;
@@ -1237,7 +1711,9 @@ footer p + p {
 
     .secao-sobre,
     .secao-integrantes,
+    .secao-bt21,
     .secao-historia,
+    .secao-videos,
     .secao-musicas {
         margin-top: 38px;
         padding: 0 14px;
@@ -1264,7 +1740,6 @@ footer p + p {
 }
 
 @media (max-width: 640px) {
-    /* Evita espaçamento esticado entre palavras em telas estreitas, mantendo o recuo de 2 dedos */
     .twofingers {
         text-align: left;
         text-indent: 24px;
@@ -1274,8 +1749,18 @@ footer p + p {
 
     .sobre-card,
     .historia-card,
+    .video-card,
     .player-arirang-box {
         padding: 22px 18px;
+    }
+
+    .modal-caixa {
+        padding: 20px 16px;
+    }
+
+    .comando-item {
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     .banner-legenda {
@@ -1306,7 +1791,6 @@ footer p + p {
         display: none;
     }
 
-    /* No celular, o volume é controlado pelos botões físicos do aparelho */
     .volume-grupo {
         display: none;
     }

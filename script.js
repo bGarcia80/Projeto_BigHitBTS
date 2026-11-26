@@ -39,7 +39,7 @@ function criarBrilho(x, y) {
     }, 900);
 }
 
-// Cursor animado apenas em dispositivos com mouse (economiza bateria no celular)
+// Cursor animado apenas em dispositivos com mouse
 if (!isDispositivoTouch) {
     window.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
@@ -174,7 +174,6 @@ function iniciarSlideshow(containerId, seletorSlides, intervaloMs) {
         timer = setInterval(() => irParaSlide(indiceAtual + 1), intervaloMs);
     }
 
-    // Suporte a deslizar o dedo (swipe) no celular
     let toqueInicioX = 0;
     container.addEventListener('touchstart', (e) => {
         toqueInicioX = e.changedTouches[0].clientX;
@@ -290,10 +289,13 @@ if (itensDestaque.length > 0 && detalheDestaque) {
 }
 
 // ==========================================
-// 5. ANIMAÇÕES INTERATIVAS NOS CARDS DOS INTEGRANTES E BOTÃO BTS
+// 5. ANIMAÇÕES INTERATIVAS NOS CARDS (BTS E BT21)
 // ==========================================
-const cardsIntegrantes = document.querySelectorAll('.integrante-card');
+const todosCardsPersonagens = document.querySelectorAll('.integrante-card');
+const cardsMembrosBts = document.querySelectorAll('#integrantes .integrante-card');
+const cardsPersonagensBt21 = document.querySelectorAll('#bt21 .integrante-card');
 const btnFanchantBts = document.getElementById('btn-fanchant-bts');
+const btnFanchantBt21 = document.getElementById('btn-fanchant-bt21');
 
 function mostrarFanchantFlutuante(texto, x, y) {
     if (!texto) return;
@@ -302,7 +304,6 @@ function mostrarFanchantFlutuante(texto, x, y) {
     etiqueta.classList.add('fanchant-flutuante');
     etiqueta.textContent = texto;
 
-    // Impede que o balão seja cortado nas bordas da tela do celular
     const margemSegura = 95;
     const posX = Math.min(Math.max(x, margemSegura), window.innerWidth - margemSegura);
     const posY = Math.max(y, 70);
@@ -316,8 +317,8 @@ function mostrarFanchantFlutuante(texto, x, y) {
     }, 1100);
 }
 
-cardsIntegrantes.forEach((card, index) => {
-    card.style.transitionDelay = `${index * 80}ms`;
+todosCardsPersonagens.forEach((card, index) => {
+    card.style.transitionDelay = `${(index % 8) * 70}ms`;
 
     const reflexo = card.querySelector('.card-reflexo');
 
@@ -357,17 +358,17 @@ cardsIntegrantes.forEach((card, index) => {
     });
 });
 
-if (btnFanchantBts) {
-    btnFanchantBts.addEventListener('click', (e) => {
-        const rect = btnFanchantBts.getBoundingClientRect();
+function configurarBotaoPuloGrupo(botao, listaCards, textoFlutuante) {
+    if (!botao) return;
+
+    botao.addEventListener('click', (e) => {
+        const rect = botao.getBoundingClientRect();
         const cliqueX = e.clientX || rect.left + rect.width / 2;
         const cliqueY = e.clientY || rect.top + rect.height / 2;
 
-        // Exibe apenas a escrita BTS
-        mostrarFanchantFlutuante('BTS! 💜', cliqueX, cliqueY);
+        mostrarFanchantFlutuante(textoFlutuante, cliqueX, cliqueY);
 
-        // Destaca e faz todos os 7 cards pularem juntos
-        cardsIntegrantes.forEach((card) => {
+        listaCards.forEach((card) => {
             card.style.transitionDelay = '0ms';
             card.classList.remove('pulsando', 'pulo-bts');
             void card.offsetWidth;
@@ -384,6 +385,9 @@ if (btnFanchantBts) {
         }
     });
 }
+
+configurarBotaoPuloGrupo(btnFanchantBts, cardsMembrosBts, 'BTS! 💜');
+configurarBotaoPuloGrupo(btnFanchantBt21, cardsPersonagensBt21, 'BT21! 💜');
 
 // ==========================================
 // 6. PLAYER EMBUTIDO DE MÚSICAS DO ARIRANG
@@ -415,8 +419,34 @@ function formatarTempo(segundos) {
 if (audioPlayer && itensFaixa.length > 0) {
     let indiceFaixaAtual = 0;
     let repetirAtivo = false;
+    let usuarioInteragiu = false;
 
     audioPlayer.volume = controleVolume ? parseFloat(controleVolume.value) : 0.85;
+
+    function resolverUrlAudio(caminhoRelativo) {
+        try {
+            return new URL(caminhoRelativo, window.location.href).href;
+        } catch {
+            return caminhoRelativo;
+        }
+    }
+
+    function atualizarMediaSession(titulo) {
+        if ('mediaSession' in navigator) {
+            try {
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: titulo,
+                    artist: 'BTS',
+                    album: 'ARIRANG',
+                    artwork: [
+                        { src: resolverUrlAudio('./img/capa.jpg'), sizes: '512x512', type: 'image/jpeg' }
+                    ]
+                });
+            } catch {
+                // Ignora em navegadores sem suporte completo ao MediaMetadata
+            }
+        }
+    }
 
     function atualizarVisualTocando(tocando) {
         if (btnPlayPause) btnPlayPause.textContent = tocando ? '⏸' : '▶';
@@ -433,6 +463,34 @@ if (audioPlayer && itensFaixa.length > 0) {
         });
     }
 
+    function executarPlayMobileSeguro(titulo) {
+        usuarioInteragiu = true;
+        if (statusPlayer) statusPlayer.textContent = `⏳ Carregando: ${titulo}...`;
+
+        const promessaPlay = audioPlayer.play();
+        if (promessaPlay !== undefined) {
+            promessaPlay
+                .then(() => {
+                    atualizarVisualTocando(true);
+                    atualizarMediaSession(titulo);
+                    if (statusPlayer) statusPlayer.textContent = `💜 Tocando agora: ${titulo}`;
+                })
+                .catch((erro) => {
+                    if (erro && erro.name === 'AbortError') return;
+                    atualizarVisualTocando(false);
+                    if (statusPlayer) {
+                        if (erro && erro.name === 'NotAllowedError') {
+                            statusPlayer.textContent = `▶️ Toque novamente em Play para iniciar "${titulo}".`;
+                        } else if (erro && erro.name === 'NotSupportedError') {
+                            statusPlayer.textContent = `⚠️ Codec de áudio incompatível com este celular em "${titulo}".`;
+                        } else {
+                            statusPlayer.textContent = `⚠️ Não foi possível reproduzir "${titulo}" (${erro ? erro.name : 'erro'}).`;
+                        }
+                    }
+                });
+        }
+    }
+
     function carregarFaixa(indice, tocarAutomaticamente = false) {
         indiceFaixaAtual = (indice + itensFaixa.length) % itensFaixa.length;
 
@@ -440,11 +498,14 @@ if (audioPlayer && itensFaixa.length > 0) {
         const itemSelecionado = itensFaixa[indiceFaixaAtual];
         itemSelecionado.classList.add('ativa');
 
-        const arquivoSrc = itemSelecionado.getAttribute('data-src');
+        const urlAudio = resolverUrlAudio(itemSelecionado.getAttribute('data-src'));
         const titulo = itemSelecionado.getAttribute('data-titulo');
         const duracaoLista = itemSelecionado.querySelector('.faixa-duracao');
 
-        audioPlayer.src = arquivoSrc;
+        audioPlayer.pause();
+        audioPlayer.src = urlAudio;
+        audioPlayer.load();
+
         if (tituloFaixaAtual) tituloFaixaAtual.textContent = titulo;
         if (barraProgressoPreenchida) barraProgressoPreenchida.style.width = '0%';
         if (tempoAtualEl) tempoAtualEl.textContent = '00:00';
@@ -454,17 +515,7 @@ if (audioPlayer && itensFaixa.length > 0) {
 
         if (tocarAutomaticamente) {
             rolarPlaylistParaFaixa(itemSelecionado);
-            audioPlayer.play()
-                .then(() => {
-                    atualizarVisualTocando(true);
-                    if (statusPlayer) statusPlayer.textContent = `💜 Tocando agora: ${titulo}`;
-                })
-                .catch(() => {
-                    atualizarVisualTocando(false);
-                    if (statusPlayer) {
-                        statusPlayer.textContent = `⚠️ Áudio de "${titulo}" ainda não disponível.`;
-                    }
-                });
+            executarPlayMobileSeguro(titulo);
         } else {
             atualizarVisualTocando(false);
             if (statusPlayer) statusPlayer.textContent = `Faixa selecionada: ${titulo}`;
@@ -474,21 +525,18 @@ if (audioPlayer && itensFaixa.length > 0) {
     carregarFaixa(0, false);
 
     btnPlayPause.addEventListener('click', (e) => {
-        const titulo = itensFaixa[indiceFaixaAtual].getAttribute('data-titulo');
+        const itemAtual = itensFaixa[indiceFaixaAtual];
+        const titulo = itemAtual.getAttribute('data-titulo');
+        const urlAudio = resolverUrlAudio(itemAtual.getAttribute('data-src'));
 
         if (audioPlayer.paused) {
-            audioPlayer.play()
-                .then(() => {
-                    atualizarVisualTocando(true);
-                    if (statusPlayer) statusPlayer.textContent = `💜 Tocando agora: ${titulo}`;
-                    for (let i = 0; i < (isDispositivoTouch ? 6 : 12); i++) criarBrilho(e.clientX, e.clientY);
-                })
-                .catch(() => {
-                    atualizarVisualTocando(false);
-                    if (statusPlayer) {
-                        statusPlayer.textContent = `⚠️ Áudio de "${titulo}" ainda não disponível.`;
-                    }
-                });
+            if (audioPlayer.error || audioPlayer.readyState === 0 || !audioPlayer.currentSrc) {
+                audioPlayer.src = urlAudio;
+                audioPlayer.load();
+            }
+
+            executarPlayMobileSeguro(titulo);
+            for (let i = 0; i < (isDispositivoTouch ? 6 : 12); i++) criarBrilho(e.clientX, e.clientY);
         } else {
             audioPlayer.pause();
             atualizarVisualTocando(false);
@@ -520,15 +568,38 @@ if (audioPlayer && itensFaixa.length > 0) {
         });
     });
 
+    if ('mediaSession' in navigator) {
+        try {
+            navigator.mediaSession.setActionHandler('play', () => {
+                const titulo = itensFaixa[indiceFaixaAtual].getAttribute('data-titulo');
+                executarPlayMobileSeguro(titulo);
+            });
+            navigator.mediaSession.setActionHandler('pause', () => {
+                audioPlayer.pause();
+                atualizarVisualTocando(false);
+            });
+            navigator.mediaSession.setActionHandler('previoustrack', () => {
+                carregarFaixa(indiceFaixaAtual - 1, true);
+            });
+            navigator.mediaSession.setActionHandler('nexttrack', () => {
+                carregarFaixa(indiceFaixaAtual + 1, true);
+            });
+        } catch {
+            // Ignora ações não suportadas no dispositivo
+        }
+    }
+
     audioPlayer.addEventListener('loadedmetadata', () => {
         const duracaoFormatada = formatarTempo(audioPlayer.duration);
-        if (tempoTotalEl) tempoTotalEl.textContent = duracaoFormatada;
-        const spanDuracaoLista = itensFaixa[indiceFaixaAtual].querySelector('.faixa-duracao');
-        if (spanDuracaoLista) spanDuracaoLista.textContent = duracaoFormatada;
+        if (duracaoFormatada !== '00:00') {
+            if (tempoTotalEl) tempoTotalEl.textContent = duracaoFormatada;
+            const spanDuracaoLista = itensFaixa[indiceFaixaAtual].querySelector('.faixa-duracao');
+            if (spanDuracaoLista) spanDuracaoLista.textContent = duracaoFormatada;
+        }
     });
 
     audioPlayer.addEventListener('timeupdate', () => {
-        if (!audioPlayer.duration) return;
+        if (!isFinite(audioPlayer.duration) || audioPlayer.duration <= 0) return;
         const porcentagem = (audioPlayer.currentTime / audioPlayer.duration) * 100;
         if (barraProgressoPreenchida) barraProgressoPreenchida.style.width = `${porcentagem}%`;
         if (tempoAtualEl) tempoAtualEl.textContent = formatarTempo(audioPlayer.currentTime);
@@ -541,17 +612,25 @@ if (audioPlayer && itensFaixa.length > 0) {
     });
 
     audioPlayer.addEventListener('error', () => {
+        if (!usuarioInteragiu) return;
         const titulo = itensFaixa[indiceFaixaAtual].getAttribute('data-titulo');
+        const codigo = audioPlayer.error ? audioPlayer.error.code : 0;
         atualizarVisualTocando(false);
+
         if (statusPlayer) {
-            statusPlayer.textContent = `⚠️ Áudio de "${titulo}" ainda não disponível.`;
+            if (codigo === 3 || codigo === 4) {
+                statusPlayer.textContent = `⚠️ Formato/codec incompatível com este celular em "${titulo}" (código ${codigo}).`;
+            } else if (codigo === 2) {
+                statusPlayer.textContent = `⚠️ Falha de rede ao baixar "${titulo}".`;
+            } else {
+                statusPlayer.textContent = `⚠️ Erro ao carregar "${titulo}" (código ${codigo}).`;
+            }
         }
     });
 
-    // Busca na barra de progresso por clique ou arrasto com o dedo
     if (barraProgressoFundo) {
         const atualizarTempoPorPosicao = (clientX) => {
-            if (!audioPlayer.duration) return;
+            if (!isFinite(audioPlayer.duration) || audioPlayer.duration <= 0) return;
             const rect = barraProgressoFundo.getBoundingClientRect();
             const proporcao = Math.min(Math.max((clientX - rect.left) / rect.width, 0), 1);
             audioPlayer.currentTime = proporcao * audioPlayer.duration;
@@ -590,3 +669,289 @@ const observador = new IntersectionObserver((entradas) => {
 }, { threshold: 0.1 });
 
 elementosRevelar.forEach((el) => observador.observe(el));
+
+// ==========================================
+// 8. JANELA POPUP E COMANDOS INTERATIVOS DO PORTAL
+// ==========================================
+(function iniciarComandosPortal() {
+    let modoArmyBombAtivo = false;
+    let historicoTeclas = '';
+    const konamiSequencia = [
+        'ArrowUp', 'ArrowUp',
+        'ArrowDown', 'ArrowDown',
+        'ArrowLeft', 'ArrowRight',
+        'ArrowLeft', 'ArrowRight',
+        'b', 'a'
+    ];
+    let indiceKonami = 0;
+
+    const modalComandos = document.getElementById('modal-comandos');
+    const btnAbrirGuia = document.getElementById('btn-abrir-guia');
+    const btnFecharModal = document.getElementById('btn-fechar-modal');
+    const itensComandoModal = document.querySelectorAll('.comando-item');
+
+    function abrirModalComandos() {
+        if (!modalComandos) return;
+        fecharMenuMobile();
+        modalComandos.classList.add('aberto');
+        modalComandos.setAttribute('aria-hidden', 'false');
+    }
+
+    function fecharModalComandos() {
+        if (!modalComandos) return;
+        modalComandos.classList.remove('aberto');
+        modalComandos.setAttribute('aria-hidden', 'true');
+    }
+
+    if (btnAbrirGuia) {
+        btnAbrirGuia.addEventListener('click', (e) => {
+            e.stopPropagation();
+            abrirModalComandos();
+        });
+    }
+
+    if (btnFecharModal) {
+        btnFecharModal.addEventListener('click', fecharModalComandos);
+    }
+
+    if (modalComandos) {
+        modalComandos.addEventListener('click', (e) => {
+            if (e.target === modalComandos) {
+                fecharModalComandos();
+            }
+        });
+    }
+
+    function mostrarAvisoPortal(mensagem) {
+        const anterior = document.querySelector('.toast-easter-egg');
+        if (anterior) anterior.remove();
+
+        const toast = document.createElement('div');
+        toast.className = 'toast-easter-egg';
+        toast.textContent = mensagem;
+        document.body.appendChild(toast);
+
+        requestAnimationFrame(() => toast.classList.add('visivel'));
+
+        setTimeout(() => {
+            toast.classList.remove('visivel');
+            setTimeout(() => toast.remove(), 350);
+        }, 3600);
+    }
+
+    function dispararChuva(simbolos = ['💜', '✨', '🌟', '🎤', '💫'], quantidade = 36) {
+        const total = isDispositivoTouch ? Math.floor(quantidade * 0.65) : quantidade;
+        for (let i = 0; i < total; i++) {
+            setTimeout(() => {
+                const item = document.createElement('span');
+                item.className = 'particula-chuva';
+                item.textContent = simbolos[Math.floor(Math.random() * simbolos.length)];
+                item.style.left = `${Math.random() * 96 + 2}vw`;
+                item.style.fontSize = `${Math.random() * 16 + 16}px`;
+                item.style.animationDuration = `${Math.random() * 2 + 2.4}s`;
+                document.body.appendChild(item);
+
+                setTimeout(() => item.remove(), 4600);
+            }, i * 55);
+        }
+    }
+
+    function alternarModoArmyBomb() {
+        modoArmyBombAtivo = !modoArmyBombAtivo;
+        document.body.classList.toggle('modo-army-bomb', modoArmyBombAtivo);
+
+        if (modoArmyBombAtivo) {
+            simbolosBrilho.splice(0, simbolosBrilho.length, '💜', '💣', '✨', '🌟', '🎶');
+            mostrarAvisoPortal('💜 MODO ARMY BOMB ATIVADO! Borahae!');
+            dispararChuva(['💜', '💣', '✨'], 34);
+        } else {
+            simbolosBrilho.splice(0, simbolosBrilho.length, '✦', '✨', '★', '✧', '💜');
+            mostrarAvisoPortal('🌙 Modo ARMY Bomb desativado.');
+        }
+    }
+
+    function ativarCelebracaoDebut() {
+        mostrarAvisoPortal('🎉 13.06.2013 • Feliz aniversário de estreia, BTS & ARMY! 💜');
+        dispararChuva(['💜', '🎂', '✨', '🏆', '7️⃣'], 45);
+        if (btnFanchantBts) btnFanchantBts.click();
+    }
+
+    function ativarCaravanaBt21() {
+        mostrarAvisoPortal('🚀 Universo BT21 em desfile!');
+        if (btnFanchantBt21) btnFanchantBt21.click();
+
+        const imagensBt21 = [
+            './img/koya.png', './img/rj.png', './img/shooky.png', './img/mang.png',
+            './img/chimmy.png', './img/tata.png', './img/cooky.png', './img/van.png'
+        ];
+
+        const caravana = document.createElement('div');
+        caravana.className = 'caravana-bt21';
+        imagensBt21.forEach((src) => {
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = 'BT21';
+            caravana.appendChild(img);
+        });
+
+        document.body.appendChild(caravana);
+        setTimeout(() => caravana.remove(), 6800);
+    }
+
+    function ativarTurboArirang() {
+        mostrarAvisoPortal('💿 MODO ARIRANG DOURADO ATIVADO!');
+        dispararChuva(['💿', '🎶', '✨', '💜'], 30);
+
+        if (discoVinil) {
+            discoVinil.classList.add('modo-turbo');
+            setTimeout(() => discoVinil.classList.remove('modo-turbo'), 12000);
+        }
+
+        const secaoMusicas = document.getElementById('musicas');
+        if (secaoMusicas) {
+            secaoMusicas.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        if (audioPlayer && audioPlayer.paused && btnPlayPause) {
+            btnPlayPause.click();
+        }
+    }
+
+    function ativarOndaBangtan() {
+        mostrarAvisoPortal('🕹️ Onda Bangtan + BT21 ativada! 💜');
+        dispararChuva(['💜', '🔥', '👑', '✨', '7️⃣'], 50);
+
+        const letreiro = document.querySelector('.letreiro-trilha');
+        if (letreiro) {
+            letreiro.classList.add('turbo');
+            setTimeout(() => letreiro.classList.remove('turbo'), 8000);
+        }
+
+        todosCardsPersonagens.forEach((card, idx) => {
+            setTimeout(() => {
+                card.classList.remove('pulsando', 'pulo-bts');
+                void card.offsetWidth;
+                card.classList.add('pulo-bts');
+            }, idx * 85);
+        });
+    }
+
+    // Clique/toque nos itens dentro da janela popup para ativar diretamente
+    itensComandoModal.forEach((item) => {
+        item.addEventListener('click', () => {
+            const acao = item.getAttribute('data-comando');
+            fecharModalComandos();
+
+            if (acao === 'borahae') alternarModoArmyBomb();
+            else if (acao === '2013') ativarCelebracaoDebut();
+            else if (acao === 'bt21') ativarCaravanaBt21();
+            else if (acao === 'arirang') ativarTurboArirang();
+            else if (acao === 'samara') mostrarAvisoPortal('✌️ Indentação de 2 dedos aprovada pela Profª Samara!');
+            else if (acao === 'konami') ativarOndaBangtan();
+        });
+    });
+
+    // Teclado: palavras-chave, Konami Code e tecla ESC para fechar o popup
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modalComandos && modalComandos.classList.contains('aberto')) {
+            fecharModalComandos();
+            return;
+        }
+
+        if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+
+        const tecla = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+        const esperada = konamiSequencia[indiceKonami];
+
+        if (tecla === esperada) {
+            indiceKonami++;
+            if (indiceKonami === konamiSequencia.length) {
+                indiceKonami = 0;
+                ativarOndaBangtan();
+            }
+        } else {
+            indiceKonami = tecla === konamiSequencia[0] ? 1 : 0;
+        }
+
+        if (e.key.length === 1) {
+            historicoTeclas = (historicoTeclas + e.key.toLowerCase()).slice(-15);
+
+            if (historicoTeclas.endsWith('borahae') || historicoTeclas.endsWith('army')) {
+                historicoTeclas = '';
+                alternarModoArmyBomb();
+            } else if (historicoTeclas.endsWith('2013') || historicoTeclas.endsWith('130613')) {
+                historicoTeclas = '';
+                ativarCelebracaoDebut();
+            } else if (historicoTeclas.endsWith('bt21')) {
+                historicoTeclas = '';
+                ativarCaravanaBt21();
+            } else if (historicoTeclas.endsWith('arirang')) {
+                historicoTeclas = '';
+                ativarTurboArirang();
+            } else if (historicoTeclas.endsWith('samara')) {
+                historicoTeclas = '';
+                mostrarAvisoPortal('✌️ Indentação de 2 dedos aprovada pela Profª Samara!');
+            }
+        }
+    });
+
+    // Ativação por gestos/toques rápidos na página
+    const logoBighit = document.getElementById('bighit');
+    if (logoBighit) {
+        let cliquesLogo = 0;
+        let timerLogo = null;
+
+        logoBighit.addEventListener('click', (e) => {
+            cliquesLogo++;
+            clearTimeout(timerLogo);
+
+            if (cliquesLogo >= 7) {
+                e.preventDefault();
+                cliquesLogo = 0;
+                alternarModoArmyBomb();
+            } else {
+                timerLogo = setTimeout(() => {
+                    cliquesLogo = 0;
+                }, 1800);
+            }
+        });
+    }
+
+    if (discoVinil) {
+        let cliquesVinil = 0;
+        let timerVinil = null;
+
+        discoVinil.addEventListener('click', () => {
+            cliquesVinil++;
+            clearTimeout(timerVinil);
+
+            if (cliquesVinil >= 5) {
+                cliquesVinil = 0;
+                ativarTurboArirang();
+            } else {
+                timerVinil = setTimeout(() => {
+                    cliquesVinil = 0;
+                }, 1600);
+            }
+        });
+    }
+
+    document.querySelectorAll('.twofingers').forEach((paragrafo) => {
+        let cliquesP = 0;
+        let timerP = null;
+
+        paragrafo.addEventListener('click', () => {
+            cliquesP++;
+            clearTimeout(timerP);
+
+            if (cliquesP >= 3) {
+                cliquesP = 0;
+                mostrarAvisoPortal('✌️ Indentação de 2 dedos aprovada pela Profª Samara!');
+            } else {
+                timerP = setTimeout(() => {
+                    cliquesP = 0;
+                }, 1200);
+            }
+        });
+    });
+})();
