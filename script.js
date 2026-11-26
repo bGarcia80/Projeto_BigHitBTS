@@ -839,6 +839,38 @@ elementosRevelar.forEach((el) => observador.observe(el));
         mostrarAvisoPortal('✌️ Indentação de 2 dedos aprovada pela Profª Samara!');
     }
 
+    function ativarSintoniaBangtan() {
+        const mensagensEngracadas = [
+            '📡 Sintonizando frequência de Seul... Sinal ARMY em 100%! 💜',
+            '🎤 Testando microfone do Jin... "1, 2, 3, Worldwide Handsome!" ✨',
+            '🔋 Recarregando energia das ARMY Bombs para o bis! 💜'
+        ];
+        const msgAleatoria = mensagensEngracadas[Math.floor(Math.random() * mensagensEngracadas.length)];
+
+        mostrarAvisoPortal(msgAleatoria);
+        dispararChuva(['📡', '💜', '✨', '🎶', '🔋'], 32);
+
+        document.body.classList.remove('calibrando-palco');
+        void document.body.offsetWidth;
+        document.body.classList.add('calibrando-palco');
+
+        const onda = document.createElement('div');
+        onda.className = 'onda-sintonia';
+        document.body.appendChild(onda);
+        setTimeout(() => onda.remove(), 1150);
+
+        // Renova o timestamp dos recursos visuais em cache (incluindo pointer.png)
+        const carimboTempo = Date.now();
+        if (cursorPonto) {
+            const baseCursor = cursorPonto.src.split('?')[0];
+            cursorPonto.src = `${baseCursor}?v=${carimboTempo}`;
+        }
+        if (gifCursor) {
+            const baseGif = gifCursor.src.split('?')[0];
+            gifCursor.src = `${baseGif}?v=${carimboTempo}`;
+        }
+    }
+
     // Teclado: palavras-chave, Konami Code e tecla ESC para fechar o popup
     window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modalComandos && modalComandos.classList.contains('aberto')) {
@@ -885,6 +917,10 @@ elementosRevelar.forEach((el) => observador.observe(el));
                 historicoTeclas = '';
                 if (modalComandos && modalComandos.classList.contains('aberto')) fecharModalComandos();
                 ativarAvisoSamara();
+            } else if (historicoTeclas.endsWith('bangtan')) {
+                historicoTeclas = '';
+                if (modalComandos && modalComandos.classList.contains('aberto')) fecharModalComandos();
+                ativarSintoniaBangtan();
             }
         }
     });
@@ -948,4 +984,24 @@ elementosRevelar.forEach((el) => observador.observe(el));
             }
         });
     });
+
+    const letreiroRodape = document.querySelector('.bloco-bts');
+    if (letreiroRodape) {
+        let cliquesLetreiro = 0;
+        let timerLetreiro = null;
+
+        letreiroRodape.addEventListener('click', () => {
+            cliquesLetreiro++;
+            clearTimeout(timerLetreiro);
+
+            if (cliquesLetreiro >= 3) {
+                cliquesLetreiro = 0;
+                ativarSintoniaBangtan();
+            } else {
+                timerLetreiro = setTimeout(() => {
+                    cliquesLetreiro = 0;
+                }, 1300);
+            }
+        });
+    }
 })();

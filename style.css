@@ -1392,6 +1392,62 @@ body.modo-army-bomb .integrante-card {
     animation-duration: 5s !important;
 }
 
+/* EFEITO DE SINTONIA DE FREQUÊNCIA (BANGTAN) */
+body.calibrando-palco {
+    animation: tremerPalco 0.45s ease-in-out 2;
+}
+
+@keyframes tremerPalco {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-6px) rotate(-0.4deg);
+    }
+
+    40% {
+        transform: translateX(6px) rotate(0.4deg);
+    }
+
+    60% {
+        transform: translateX(-4px);
+    }
+
+    80% {
+        transform: translateX(4px);
+    }
+}
+
+.onda-sintonia {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 4px solid #ffd166;
+    box-shadow: 0 0 25px #c77dff, inset 0 0 20px #9d4edd;
+    transform: translate(-50%, -50%) scale(0.2);
+    pointer-events: none;
+    z-index: 10008;
+    animation: expandirOndaSintonia 1.1s ease-out forwards;
+}
+
+@keyframes expandirOndaSintonia {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.2);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(32);
+    }
+}
+
 /* ANIMAÇÃO DE REVELAR AO ROLAR */
 .revelar {
     opacity: 0;
