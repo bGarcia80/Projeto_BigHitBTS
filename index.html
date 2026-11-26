@@ -1,27 +1,62 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#120824">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#120824" />
     <title>BTS & BIGHIT MUSIC - Portal</title>
-    <link rel="icon" type="image/png" href="./img/icon.png">
-    <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-
+    <link rel="icon" type="image/png" href="./img/icon.png" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <!-- CURSORES PERSONALIZADOS (DESKTOP) -->
-    <img src="./img/pointer.png" alt="Cursor BTS" class="cursor-ponto">
-    <img src="./img/tanque.gif" alt="Cursor animado" id="gif-cursor">
+    <img src="./img/pointer.png" alt="Cursor BTS" class="cursor-ponto" />
+    <img src="./img/tanque.gif" alt="Cursor animado" id="gif-cursor" />
 
     <!-- MENU DE NAVEGAÇÃO FIXO -->
     <header class="inicio" id="topo">
-        <nav class="navbar">
-            <a href="index.html" class="logo-link">
-                <img id="bighit" src="./img/logo.png" alt="Logo BIGHIT MUSIC" title="BIGHIT MUSIC">
+      <nav class="navbar">
+        <a href="." class="logo-link">
+          <img
+            id="bighit"
+            src="./img/logo.png"
+            alt="Logo BIGHIT MUSIC"
+            title="BIGHIT MUSIC"
+          />
+        </a>
+
+        <button
+          type="button"
+          class="menu-toggle"
+          id="menu-toggle"
+          aria-label="Abrir menu de navegação"
+          aria-expanded="false"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <ul class="navegaMenu" id="navega-menu">
+          <li><a href="#topo">Home</a></li>
+          <li><a href="#sobre">Quem somos</a></li>
+          <li><a href="#integrantes">Integrantes</a></li>
+          <li><a href="#historia">Sobre o BTS</a></li>
+          <li><a href="#videos">Vídeos</a></li>
+          <li><a href="#musicas">Arirang</a></li>
+          <li>
+            <a
+              href="https://bgarcia80.github.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-portfolio"
+            >
+              Portfólio
             </a>
+<<<<<<< HEAD
 
             <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Abrir menu de navegação"
                 aria-expanded="false">
@@ -51,6 +86,11 @@
                 </li>
             </ul>
         </nav>
+=======
+          </li>
+        </ul>
+      </nav>
+>>>>>>> fd280c742702c53b804d266b524c19da4e437736
     </header>
 
     <!-- JANELA POPUP FECHÁVEL DE COMANDOS DO PORTAL -->
@@ -126,196 +166,534 @@
     </div>
 
     <main>
-        <!-- SLIDESHOW AUTOMÁTICO PRINCIPAL -->
-        <section class="bts">
-            <div class="banner-moldura" id="banner-card">
-                <div class="slideshow-wrapper">
-                    <img src="./img/banner01.jpg" alt="BTS Foto 01" class="slide ativo">
-                    <img src="./img/banner02.jpg" alt="BTS Foto 02" class="slide">
-                    <img src="./img/banner03.jpg" alt="BTS Foto 03" class="slide">
-                    <img src="./img/banner04.jpg" alt="BTS Foto 04" class="slide">
-                    <img src="./img/banner05.jpg" alt="BTS Foto 05" class="slide">
-                </div>
+      <!-- SLIDESHOW AUTOMÁTICO PRINCIPAL -->
+      <section class="bts">
+        <div class="banner-moldura" id="banner-card">
+          <div class="slideshow-wrapper">
+            <img
+              src="./img/banner01.jpg"
+              alt="BTS Foto 01"
+              class="slide ativo"
+            />
+            <img src="./img/banner02.jpg" alt="BTS Foto 02" class="slide" />
+            <img src="./img/banner03.jpg" alt="BTS Foto 03" class="slide" />
+            <img src="./img/banner04.jpg" alt="BTS Foto 04" class="slide" />
+            <img src="./img/banner05.jpg" alt="BTS Foto 05" class="slide" />
+          </div>
 
-                <div class="banner-legenda">
-                    <div>
-                        <span class="badge-bts">BIGHIT MUSIC • ARTIST</span>
-                        <h2>BTS — Galeria & Atualizações</h2>
-                    </div>
-                </div>
+          <div class="banner-legenda">
+            <div>
+              <span class="badge-bts">BIGHIT MUSIC • ARTIST</span>
+              <h2>BTS — Galeria & Atualizações</h2>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
 
-        <!-- SEÇÃO QUEM SOMOS / SOBRE A BIGHIT -->
-        <section class="secao-sobre revelar" id="sobre">
-            <h1>Quem Somos</h1>
+      <!-- SEÇÃO QUEM SOMOS / SOBRE A BIGHIT -->
+      <section class="secao-sobre revelar" id="sobre">
+        <h1>Quem Somos</h1>
 
-            <div class="sobre-card">
-                <div class="sobre-logo-box" id="sobre-logo" title="Toque para alternar o lema">
-                    <img src="./img/logo.png" alt="Logo oficial BIGHIT MUSIC">
-                </div>
+        <div class="sobre-card">
+          <div
+            class="sobre-logo-box"
+            id="sobre-logo"
+            title="Toque para alternar o lema"
+          >
+            <img src="./img/logo.png" alt="Logo oficial BIGHIT MUSIC" />
+          </div>
 
-                <div class="sobre-texto">
-                    <span class="sobre-lema" id="sobre-lema">“Music & Artist for Healing”</span>
-                    <p class="twofingers">
-                        Fundada em 2005 por Bang Si-hyuk na Coreia do Sul e integrante da HYBE, a <strong>BIGHIT
-                            MUSIC</strong> é uma gravadora e empresa de entretenimento dedicada a produzir músicas
-                        autênticas e formar artistas que inspiram e confortam o público ao redor do mundo.
-                    </p>
-                    <p class="twofingers">
-                        Casa de fenômenos globais como o <strong>BTS</strong> e o <strong>TOMORROW X TOGETHER
-                            (TXT)</strong>, a gravadora se destaca pela liberdade criativa dada aos seus integrantes,
-                        unindo narrativas profundas, performances marcantes e uma conexão genuína com os fãs em todos os
-                        continentes.
-                    </p>
+          <div class="sobre-texto">
+            <span class="sobre-lema" id="sobre-lema"
+              >“Music & Artist for Healing”</span
+            >
+            <p class="twofingers">
+              Fundada em 2005 por Bang Si-hyuk na Coreia do Sul e integrante da
+              HYBE, a <strong>BIGHIT MUSIC</strong> é uma gravadora e empresa de
+              entretenimento dedicada a produzir músicas autênticas e formar
+              artistas que inspiram e confortam o público ao redor do mundo.
+            </p>
+            <p class="twofingers">
+              Casa de fenômenos globais como o <strong>BTS</strong> e o
+              <strong>TOMORROW X TOGETHER (TXT)</strong>, a gravadora se destaca
+              pela liberdade criativa dada aos seus integrantes, unindo
+              narrativas profundas, performances marcantes e uma conexão genuína
+              com os fãs em todos os continentes.
+            </p>
 
-                    <div class="sobre-destaques">
-                        <div class="destaque-item ativo"
-                            data-detalhe="📅 Fundada em 1º de fevereiro de 2005 como Big Hit Entertainment, passou a se chamar BIGHIT MUSIC em 2021.">
-                            <strong id="contador-ano">2005</strong>
-                            <span>Ano de fundação em Seul</span>
-                        </div>
-                        <div class="destaque-item"
-                            data-detalhe="🏢 Atua como selo musical independente dentro da HYBE Corporation, focado em produção artística.">
-                            <strong>HYBE</strong>
-                            <span>Selo musical independente</span>
-                        </div>
-                        <div class="destaque-item"
-                            data-detalhe="🌎 Seus artistas acumulam álbuns nº 1 na Billboard 200 e turnês esgotadas em estádios pelo mundo.">
-                            <strong>Global</strong>
-                            <span>Recordes e turnês mundiais</span>
-                        </div>
-                    </div>
-
-                    <p class="detalhe-destaque" id="detalhe-destaque">
-                        📅 Fundada em 1º de fevereiro de 2005 como Big Hit Entertainment, passou a se chamar BIGHIT
-                        MUSIC em 2021.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- SEÇÃO INTEGRANTES DO BTS -->
-        <section class="secao-integrantes" id="integrantes">
-            <h1>Integrantes do BTS</h1>
-            <p class="integrantes-intro">Toque ou passe o cursor nos cards para interagir com os sete integrantes do
-                grupo.</p>
-
-            <div class="integrantes-grid">
-                <!-- RM -->
-                <article class="integrante-card revelar" data-fanchant="Kim Namjoon! 💜">
-                    <div class="card-reflexo"></div>
-                    <div class="integrante-foto">
-                        <img src="./img/rm.jpg" alt="RM - Kim Namjoon" loading="lazy">
-                    </div>
-                    <div class="integrante-info">
-                        <span class="integrante-cargo">Líder • Rapper</span>
-                        <h3>RM</h3>
-                        <span class="integrante-nome-real">Kim Namjoon</span>
-                        <p>Líder do grupo, compositor e letrista principal de grande parte da discografia do BTS,
-                            reconhecido por suas letras reflexivas.</p>
-                    </div>
-                </article>
-
-                <!-- Jin -->
-                <article class="integrante-card revelar" data-fanchant="Kim Seokjin! 💜">
-                    <div class="card-reflexo"></div>
-                    <div class="integrante-foto">
-                        <img src="./img/jin.jpg" alt="Jin - Kim Seokjin" loading="lazy">
-                    </div>
-                    <div class="integrante-info">
-                        <span class="integrante-cargo">Vocalista • Visual</span>
-                        <h3>Jin</h3>
-                        <span class="integrante-nome-real">Kim Seokjin</span>
-                        <p>Conhecido pelo timbre emotivo e notas altas estáveis, além de baladas solo marcantes e
-                            carisma bem-humorado nos palcos.</p>
-                    </div>
-                </article>
-
-                <!-- SUGA -->
-                <article class="integrante-card revelar" data-fanchant="Min Yoongi! 💜">
-                    <div class="card-reflexo"></div>
-                    <div class="integrante-foto">
-                        <img src="./img/suga.jpg" alt="SUGA - Min Yoongi" loading="lazy">
-                    </div>
-                    <div class="integrante-info">
-                        <span class="integrante-cargo">Rapper • Produtor</span>
-                        <h3>SUGA</h3>
-                        <span class="integrante-nome-real">Min Yoongi</span>
-                        <p>Rapper e produtor musical versátil, também conhecido pelo projeto solo Agust D, destacando-se
-                            por batidas intensas e letras sinceras.</p>
-                    </div>
-                </article>
-
-                <!-- j-hope -->
-                <article class="integrante-card revelar" data-fanchant="Jung Hoseok! 💜">
-                    <div class="card-reflexo"></div>
-                    <div class="integrante-foto">
-                        <img src="./img/hope.jpg" alt="j-hope - Jung Hoseok" loading="lazy">
-                    </div>
-                    <div class="integrante-info">
-                        <span class="integrante-cargo">Rapper • Dançarino Principal</span>
-                        <h3>j-hope</h3>
-                        <span class="integrante-nome-real">Jung Hoseok</span>
-                        <p>Referência em dança e direção de performance, traz energia contagiante, precisão coreográfica
-                            e musicalidade rítmica ao grupo.</p>
-                    </div>
-                </article>
-
-                <!-- Jimin -->
-                <article class="integrante-card revelar" data-fanchant="Park Jimin! 💜">
-                    <div class="card-reflexo"></div>
-                    <div class="integrante-foto">
-                        <img src="./img/jimin.jpg" alt="Jimin - Park Jimin" loading="lazy">
-                    </div>
-                    <div class="integrante-info">
-                        <span class="integrante-cargo">Vocalista • Dançarino Principal</span>
-                        <h3>Jimin</h3>
-                        <span class="integrante-nome-real">Park Jimin</span>
-                        <p>Reconhecido por seu timbre vocal singular e expressividade artística que combina dança
-                            contemporânea e pop.</p>
-                    </div>
-                </article>
-
-                <!-- V -->
-                <article class="integrante-card revelar" data-fanchant="Kim Taehyung! 💜">
-                    <div class="card-reflexo"></div>
-                    <div class="integrante-foto">
-                        <img src="./img/v.jpg" alt="V - Kim Taehyung" loading="lazy">
-                    </div>
-                    <div class="integrante-info">
-                        <span class="integrante-cargo">Vocalista • Visual</span>
-                        <h3>V</h3>
-                        <span class="integrante-nome-real">Kim Taehyung</span>
-                        <p>Dono de uma voz barítona profunda e aveludada, com forte influência do jazz, soul e marcante
-                            presença estética.</p>
-                    </div>
-                </article>
-
-                <!-- Jung Kook -->
-                <article class="integrante-card revelar" data-fanchant="Jeon Jungkook! 💜">
-                    <div class="card-reflexo"></div>
-                    <div class="integrante-foto">
-                        <img src="./img/jk.jpg" alt="Jung Kook - Jeon Jungkook" loading="lazy">
-                    </div>
-                    <div class="integrante-info">
-                        <span class="integrante-cargo">Vocalista Principal • Maknae</span>
-                        <h3>Jung Kook</h3>
-                        <span class="integrante-nome-real">Jeon Jungkook</span>
-                        <p>O integrante mais novo do grupo, conhecido pela versatilidade vocal, estabilidade ao vivo e
-                            sucessos pop globais.</p>
-                    </div>
-                </article>
+            <div class="sobre-destaques">
+              <div
+                class="destaque-item ativo"
+                data-detalhe="📅 Fundada em 1º de fevereiro de 2005 como Big Hit Entertainment, passou a se chamar BIGHIT MUSIC em 2021."
+              >
+                <strong id="contador-ano">2005</strong>
+                <span>Ano de fundação em Seul</span>
+              </div>
+              <div
+                class="destaque-item"
+                data-detalhe="🏢 Atua como selo musical independente dentro da HYBE Corporation, focado em produção artística."
+              >
+                <strong>HYBE</strong>
+                <span>Selo musical independente</span>
+              </div>
+              <div
+                class="destaque-item"
+                data-detalhe="🌎 Seus artistas acumulam álbuns nº 1 na Billboard 200 e turnês esgotadas em estádios pelo mundo."
+              >
+                <strong>Global</strong>
+                <span>Recordes e turnês mundiais</span>
+              </div>
             </div>
 
-            <!-- BOTÃO FANCHANT GRUPO BTS -->
-            <div class="bts-fanchant-acao revelar">
-                <button type="button" class="btn-fanchant-bts" id="btn-fanchant-bts">
-                    💜 BTS!
+            <p class="detalhe-destaque" id="detalhe-destaque">
+              📅 Fundada em 1º de fevereiro de 2005 como Big Hit Entertainment,
+              passou a se chamar BIGHIT MUSIC em 2021.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEÇÃO INTEGRANTES DO BTS -->
+      <section class="secao-integrantes" id="integrantes">
+        <h1>Integrantes do BTS</h1>
+        <p class="integrantes-intro">
+          Toque ou passe o cursor nos cards para interagir com os sete
+          integrantes do grupo.
+        </p>
+
+        <div class="integrantes-grid">
+          <!-- RM -->
+          <article
+            class="integrante-card revelar"
+            data-fanchant="Kim Namjoon! 💜"
+          >
+            <div class="card-reflexo"></div>
+            <div class="integrante-foto">
+              <img src="./img/rm.jpg" alt="RM - Kim Namjoon" loading="lazy" />
+            </div>
+            <div class="integrante-info">
+              <span class="integrante-cargo">Líder • Rapper</span>
+              <h3>RM</h3>
+              <span class="integrante-nome-real">Kim Namjoon</span>
+              <p>
+                Líder do grupo, compositor e letrista principal de grande parte
+                da discografia do BTS, reconhecido por suas letras reflexivas.
+              </p>
+            </div>
+          </article>
+
+          <!-- Jin -->
+          <article
+            class="integrante-card revelar"
+            data-fanchant="Kim Seokjin! 💜"
+          >
+            <div class="card-reflexo"></div>
+            <div class="integrante-foto">
+              <img src="./img/jin.jpg" alt="Jin - Kim Seokjin" loading="lazy" />
+            </div>
+            <div class="integrante-info">
+              <span class="integrante-cargo">Vocalista • Visual</span>
+              <h3>Jin</h3>
+              <span class="integrante-nome-real">Kim Seokjin</span>
+              <p>
+                Conhecido pelo timbre emotivo e notas altas estáveis, além de
+                baladas solo marcantes e carisma bem-humorado nos palcos.
+              </p>
+            </div>
+          </article>
+
+          <!-- SUGA -->
+          <article
+            class="integrante-card revelar"
+            data-fanchant="Min Yoongi! 💜"
+          >
+            <div class="card-reflexo"></div>
+            <div class="integrante-foto">
+              <img
+                src="./img/suga.jpg"
+                alt="SUGA - Min Yoongi"
+                loading="lazy"
+              />
+            </div>
+            <div class="integrante-info">
+              <span class="integrante-cargo">Rapper • Produtor</span>
+              <h3>SUGA</h3>
+              <span class="integrante-nome-real">Min Yoongi</span>
+              <p>
+                Rapper e produtor musical versátil, também conhecido pelo
+                projeto solo Agust D, destacando-se por batidas intensas e
+                letras sinceras.
+              </p>
+            </div>
+          </article>
+
+          <!-- j-hope -->
+          <article
+            class="integrante-card revelar"
+            data-fanchant="Jung Hoseok! 💜"
+          >
+            <div class="card-reflexo"></div>
+            <div class="integrante-foto">
+              <img
+                src="./img/hope.jpg"
+                alt="j-hope - Jung Hoseok"
+                loading="lazy"
+              />
+            </div>
+            <div class="integrante-info">
+              <span class="integrante-cargo">Rapper • Dançarino Principal</span>
+              <h3>j-hope</h3>
+              <span class="integrante-nome-real">Jung Hoseok</span>
+              <p>
+                Referência em dança e direção de performance, traz energia
+                contagiante, precisão coreográfica e musicalidade rítmica ao
+                grupo.
+              </p>
+            </div>
+          </article>
+
+          <!-- Jimin -->
+          <article
+            class="integrante-card revelar"
+            data-fanchant="Park Jimin! 💜"
+          >
+            <div class="card-reflexo"></div>
+            <div class="integrante-foto">
+              <img
+                src="./img/jimin.jpg"
+                alt="Jimin - Park Jimin"
+                loading="lazy"
+              />
+            </div>
+            <div class="integrante-info">
+              <span class="integrante-cargo"
+                >Vocalista • Dançarino Principal</span
+              >
+              <h3>Jimin</h3>
+              <span class="integrante-nome-real">Park Jimin</span>
+              <p>
+                Reconhecido por seu timbre vocal singular e expressividade
+                artística que combina dança contemporânea e pop.
+              </p>
+            </div>
+          </article>
+
+          <!-- V -->
+          <article
+            class="integrante-card revelar"
+            data-fanchant="Kim Taehyung! 💜"
+          >
+            <div class="card-reflexo"></div>
+            <div class="integrante-foto">
+              <img src="./img/v.jpg" alt="V - Kim Taehyung" loading="lazy" />
+            </div>
+            <div class="integrante-info">
+              <span class="integrante-cargo">Vocalista • Visual</span>
+              <h3>V</h3>
+              <span class="integrante-nome-real">Kim Taehyung</span>
+              <p>
+                Dono de uma voz barítona profunda e aveludada, com forte
+                influência do jazz, soul e marcante presença estética.
+              </p>
+            </div>
+          </article>
+
+          <!-- Jung Kook -->
+          <article
+            class="integrante-card revelar"
+            data-fanchant="Jeon Jungkook! 💜"
+          >
+            <div class="card-reflexo"></div>
+            <div class="integrante-foto">
+              <img
+                src="./img/jk.jpg"
+                alt="Jung Kook - Jeon Jungkook"
+                loading="lazy"
+              />
+            </div>
+            <div class="integrante-info">
+              <span class="integrante-cargo">Vocalista Principal • Maknae</span>
+              <h3>Jung Kook</h3>
+              <span class="integrante-nome-real">Jeon Jungkook</span>
+              <p>
+                O integrante mais novo do grupo, conhecido pela versatilidade
+                vocal, estabilidade ao vivo e sucessos pop globais.
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <!-- BOTÃO FANCHANT GRUPO BTS -->
+        <div class="bts-fanchant-acao revelar">
+          <button type="button" class="btn-fanchant-bts" id="btn-fanchant-bts">
+            💜 BTS!
+          </button>
+        </div>
+      </section>
+
+      <!-- SEÇÃO SOBRE O BTS -->
+      <section class="secao-historia revelar" id="historia">
+        <h1>Sobre o BTS</h1>
+
+        <div class="historia-card">
+          <span class="historia-badge">방탄소년단 • BANGTAN SONYEONDAN</span>
+          <p class="twofingers">
+            O BTS (em coreano: 방탄소년단; RR: Bangtan Sonyeondan; lit.
+            “Escoteiros à Prova de Balas”), também conhecido como Bangtan Boys,
+            é uma boy band sul-coreana formada em 2010. O grupo é composto por
+            Jin, Suga, J-Hope, RM, Jimin, V e Jung Kook, que coescrevem e
+            coproduzem grande parte de seu próprio material. Originalmente um
+            grupo de hip hop, eles expandiram seu estilo musical para incorporar
+            uma ampla variedade de gêneros, enquanto suas letras abordam temas
+            como saúde mental, os dilemas da juventude em idade escolar e o
+            amadurecimento, perdas, a jornada rumo ao amor-próprio, o
+            individualismo e as consequências da fama e do reconhecimento. Sua
+            discografia e obras paralelas também fazem referências à literatura,
+            filosofia e psicologia, além de incluírem uma narrativa em um
+            universo alternativo.
+          </p>
+          <p class="twofingers">
+            O BTS estreou em 2013 pela Big Hit Entertainment com o single álbum
+            <em>2 Cool 4 Skool</em>. Em 2014, o grupo lançou seus primeiros
+            álbuns de estúdio em coreano e em japonês,
+            <em>Dark &amp; Wild</em> e <em>Wake Up</em>, respectivamente.
+          </p>
+
+          <!-- SLIDESHOW DE IMAGENS DA BIOGRAFIA -->
+          <div class="banner-moldura bio-slideshow" id="bio-slideshow">
+            <div class="slideshow-wrapper">
+              <img
+                src="./img/old01.jpg"
+                alt="BTS Foto Histórica 01"
+                class="slide bio-slide ativo"
+                loading="lazy"
+              />
+              <img
+                src="./img/old02.jpg"
+                alt="BTS Foto Histórica 02"
+                class="slide bio-slide"
+                loading="lazy"
+              />
+              <img
+                src="./img/old03.jpg"
+                alt="BTS Foto Histórica 03"
+                class="slide bio-slide"
+                loading="lazy"
+              />
+              <img
+                src="./img/old04.jpg"
+                alt="BTS Foto Histórica 04"
+                class="slide bio-slide"
+                loading="lazy"
+              />
+              <img
+                src="./img/old05.jpg"
+                alt="BTS Foto Histórica 05"
+                class="slide bio-slide"
+                loading="lazy"
+              />
+              <img
+                src="./img/old06.jpg"
+                alt="BTS Foto Histórica 06"
+                class="slide bio-slide"
+                loading="lazy"
+              />
+              <img
+                src="./img/old07.jpg"
+                alt="BTS Foto Histórica 07"
+                class="slide bio-slide"
+                loading="lazy"
+              />
+              <img
+                src="./img/old08.jpg"
+                alt="BTS Foto Histórica 08"
+                class="slide bio-slide"
+                loading="lazy"
+              />
+              <img
+                src="./img/old09.jpg"
+                alt="BTS Foto Histórica 09"
+                class="slide bio-slide"
+                loading="lazy"
+              />
+              <img
+                src="./img/old10.jpg"
+                alt="BTS Foto Histórica 10"
+                class="slide bio-slide"
+                loading="lazy"
+              />
+            </div>
+
+            <div class="banner-legenda">
+              <div>
+                <span class="badge-bts">방탄소년단 • TRAJETÓRIA</span>
+                <h2>BTS — Galeria Histórica</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEÇÃO DE VÍDEOS - ERA ARIRANG -->
+      <section class="secao-videos revelar" id="videos">
+        <h1>Vídeos • Era Arirang</h1>
+        <p class="videos-subtitulo">
+          Assista aos vídeos da era Arirang diretamente no portal.
+        </p>
+
+        <div class="videos-lista">
+          <!-- 1. Hooligan -->
+          <article class="video-card">
+            <div class="video-cabecalho">
+              <span class="video-selo">01 • VÍDEO</span>
+              <h2>Hooligan</h2>
+            </div>
+            <div class="video-frame-wrapper">
+              <iframe
+                src="https://drive.google.com/file/d/17fU0FZs8IDbxVKo7zf3EmTbQW4qS_tKd/preview"
+                width="640"
+                height="480"
+                title="BTS - Hooligan"
+                allow="autoplay; fullscreen"
+                allowfullscreen
+                loading="lazy"
+              >
+              </iframe>
+            </div>
+          </article>
+
+          <!-- 2. 2.0 / No. 29 -->
+          <article class="video-card">
+            <div class="video-cabecalho">
+              <span class="video-selo">02 • VÍDEO</span>
+              <h2>2.0 / No. 29</h2>
+            </div>
+            <div class="video-frame-wrapper">
+              <iframe
+                src="https://drive.google.com/file/d/10AgwQPwFTYc9ScJJy0k81xdhAHKFPwy1/preview"
+                width="640"
+                height="480"
+                title="BTS - 2.0 / No. 29"
+                allow="autoplay; fullscreen"
+                allowfullscreen
+                loading="lazy"
+              >
+              </iframe>
+            </div>
+          </article>
+
+          <!-- 3. SWIM -->
+          <article class="video-card">
+            <div class="video-cabecalho">
+              <span class="video-selo">03 • VÍDEO</span>
+              <h2>SWIM</h2>
+            </div>
+            <div class="video-frame-wrapper">
+              <iframe
+                src="https://drive.google.com/file/d/1Hy53sxolkGax-WCTwZeiQ-ZChc1oLxrY/preview"
+                width="640"
+                height="480"
+                title="BTS - SWIM"
+                allow="autoplay; fullscreen"
+                allowfullscreen
+                loading="lazy"
+              >
+              </iframe>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- PLAYER EMBUTIDO DE MÚSICAS DO ARIRANG -->
+      <section class="secao-musicas revelar" id="musicas">
+        <h1>Músicas • Era Arirang</h1>
+        <p class="musicas-subtitulo">
+          Ouça as faixas do álbum Arirang diretamente no portal.
+        </p>
+
+        <div class="player-arirang-box" id="player-arirang">
+          <audio
+            id="audio-player"
+            preload="auto"
+            playsinline
+            webkit-playsinline
+          ></audio>
+
+          <!-- Painel Principal do Player -->
+          <div class="player-painel">
+            <div class="disco-container">
+              <div class="disco-vinil" id="disco-vinil">
+                <img src="./img/capa.jpg" alt="Capa Arirang" />
+                <span class="disco-centro"></span>
+              </div>
+              <div class="equalizador" id="equalizador" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+
+            <div class="player-controles-area">
+              <span class="player-selo">BTS • ARIRANG TRACKLIST</span>
+              <h2 id="faixa-atual-titulo">01 - Body to Body</h2>
+
+              <!-- Barra de Progresso com área de toque ampliada -->
+              <div class="progresso-wrapper">
+                <span id="tempo-atual">00:00</span>
+                <div
+                  class="progresso-touch-area"
+                  id="barra-progresso-fundo"
+                  role="slider"
+                  aria-label="Progresso da música"
+                >
+                  <div class="barra-progresso-trilha">
+                    <div
+                      class="barra-progresso-preenchida"
+                      id="barra-progresso-preenchida"
+                    ></div>
+                  </div>
+                </div>
+                <span id="tempo-total">03:09</span>
+              </div>
+
+              <!-- Botões de Reprodução e Volume -->
+              <div class="player-botoes">
+                <button
+                  type="button"
+                  class="btn-player-sec"
+                  id="btn-repetir"
+                  title="Repetir faixa"
+                >
+                  🔁
                 </button>
-            </div>
-        </section>
+                <button
+                  type="button"
+                  class="btn-player-sec"
+                  id="btn-faixa-anterior"
+                  title="Faixa anterior"
+                >
+                  ⏮
+                </button>
+                <button
+                  type="button"
+                  class="btn-player-play"
+                  id="btn-play-pause"
+                  title="Tocar / Pausar"
+                >
+                  ▶
+                </button>
+                <button
+                  type="button"
+                  class="btn-player-sec"
+                  id="btn-proxima-faixa"
+                  title="Próxima faixa"
+                >
+                  ⏭
+                </button>
 
+<<<<<<< HEAD
         <!-- SEÇÃO PERSONAGENS BT21 -->
         <section class="secao-bt21" id="bt21">
             <h1>Universo BT21</h1>
@@ -497,10 +875,29 @@
                             <h2>BTS — Galeria Histórica</h2>
                         </div>
                     </div>
+=======
+                <div class="volume-grupo">
+                  <span>🔊</span>
+                  <input
+                    type="range"
+                    id="controle-volume"
+                    min="0"
+                    max="1"
+                    step="0.05"
+                    value="0.85"
+                    aria-label="Volume"
+                  />
+>>>>>>> fd280c742702c53b804d266b524c19da4e437736
                 </div>
-            </div>
-        </section>
+              </div>
 
+              <p class="player-status" id="player-status">
+                Toque em play ou selecione uma faixa na lista abaixo.
+              </p>
+            </div>
+          </div>
+
+<<<<<<< HEAD
         <!-- SEÇÃO DE VÍDEOS - ERA ARIRANG -->
         <section class="secao-videos revelar" id="videos">
             <h1>Vídeos • Era Arirang</h1>
@@ -781,43 +1178,257 @@
                         </li>
                     </ul>
                 </div>
+=======
+          <!-- Tracklist Oficial do Álbum -->
+          <div class="playlist-arirang">
+            <div class="playlist-cabecalho">
+              <span>Tracklist • Arirang</span>
+              <small>15 faixas</small>
+>>>>>>> fd280c742702c53b804d266b524c19da4e437736
             </div>
-        </section>
+
+            <ul class="lista-faixas" id="lista-faixas">
+              <li
+                class="faixa-item ativa"
+                data-src="./arirang/01-bodytobody.mp3"
+                data-titulo="01 - Body to Body"
+              >
+                <div class="faixa-esq">
+                  <span class="faixa-num">01</span>
+                  <div>
+                    <strong>Body to Body</strong>
+                  </div>
+                </div>
+                <span class="faixa-duracao">03:09</span>
+              </li>
+
+              <li
+                class="faixa-item"
+                data-src="./arirang/02-hooligan.mp3"
+                data-titulo="02 - Hooligan"
+              >
+                <div class="faixa-esq">
+                  <span class="faixa-num">02</span>
+                  <div>
+                    <strong>Hooligan</strong>
+                  </div>
+                </div>
+                <span class="faixa-duracao">03:02</span>
+              </li>
+
+              <li
+                class="faixa-item"
+                data-src="./arirang/03-aliens.mp3"
+                data-titulo="03 - Aliens"
+              >
+                <div class="faixa-esq">
+                  <span class="faixa-num">03</span>
+                  <div>
+                    <strong>Aliens</strong>
+                  </div>
+                </div>
+                <span class="faixa-duracao">02:47</span>
+              </li>
+
+              <li
+                class="faixa-item"
+                data-src="./arirang/04-fya.mp3"
+                data-titulo="04 - FYA"
+              >
+                <div class="faixa-esq">
+                  <span class="faixa-num">04</span>
+                  <div>
+                    <strong>FYA</strong>
+                  </div>
+                </div>
+                <span class="faixa-duracao">03:00</span>
+              </li>
+
+              <li
+                class="faixa-item"
+                data-src="./arirang/05-2.0.mp3"
+                data-titulo="05 - 2.0"
+              >
+                <div class="faixa-esq">
+                  <span class="faixa-num">05</span>
+                  <div>
+                    <strong>2.0</strong>
+                  </div>
+                </div>
+                <span class="faixa-duracao">02:49</span>
+              </li>
+
+              <li
+                class="faixa-item"
+                data-src="./arirang/06-no29.mp3"
+                data-titulo="06 - No. 29 (Instrumental)"
+              >
+                <div class="faixa-esq">
+                  <span class="faixa-num">06</span>
+                  <div>
+                    <strong>No. 29</strong>
+                    <small>Instrumental</small>
+                  </div>
+                </div>
+                <span class="faixa-duracao">01:38</span>
+              </li>
+
+              <li
+                class="faixa-item"
+                data-src="./arirang/07-swim.mp3"
+                data-titulo="07 - SWIM"
+              >
+                <div class="faixa-esq">
+                  <span class="faixa-num">07</span>
+                  <div>
+                    <strong>SWIM</strong>
+                  </div>
+                </div>
+                <span class="faixa-duracao">02:39</span>
+              </li>
+
+              <li
+                class="faixa-item"
+                data-src="./arirang/08-merrygoround.mp3"
+                data-titulo="08 - Merry Go Round"
+              >
+                <div class="faixa-esq">
+                  <span class="faixa-num">08</span>
+                  <div>
+                    <strong>Merry Go Round</strong>
+                  </div>
+                </div>
+                <span class="faixa-duracao">03:49</span>
+              </li>
+
+              <li
+                class="faixa-item"
+                data-src="./arirang/09-normal.mp3"
+                data-titulo="09 - NORMAL (Explicit Ver.)"
+              >
+                <div class="faixa-esq">
+                  <span class="faixa-num">09</span>
+                  <div>
+                    <strong>NORMAL</strong>
+                    <small>Explicit Ver.</small>
+                  </div>
+                </div>
+                <span class="faixa-duracao">03:01</span>
+              </li>
+
+              <li
+                class="faixa-item"
+                data-src="./arirang/10-likeanimals.mp3"
+                data-titulo="10 - Like Animals"
+              >
+                <div class="faixa-esq">
+                  <span class="faixa-num">10</span>
+                  <div>
+                    <strong>Like Animals</strong>
+                  </div>
+                </div>
+                <span class="faixa-duracao">03:09</span>
+              </li>
+
+              <li
+                class="faixa-item"
+                data-src="./arirang/11-theydontboutus.mp3"
+                data-titulo="11 - they don't know 'bout us"
+              >
+                <div class="faixa-esq">
+                  <span class="faixa-num">11</span>
+                  <div>
+                    <strong>they don't know 'bout us</strong>
+                  </div>
+                </div>
+                <span class="faixa-duracao">02:44</span>
+              </li>
+
+              <li
+                class="faixa-item"
+                data-src="./arirang/12-onemorenight.mp3"
+                data-titulo="12 - One More Night"
+              >
+                <div class="faixa-esq">
+                  <span class="faixa-num">12</span>
+                  <div>
+                    <strong>One More Night</strong>
+                  </div>
+                </div>
+                <span class="faixa-duracao">02:47</span>
+              </li>
+
+              <li
+                class="faixa-item"
+                data-src="./arirang/13-please.mp3"
+                data-titulo="13 - Please"
+              >
+                <div class="faixa-esq">
+                  <span class="faixa-num">13</span>
+                  <div>
+                    <strong>Please</strong>
+                  </div>
+                </div>
+                <span class="faixa-duracao">02:52</span>
+              </li>
+
+              <li
+                class="faixa-item"
+                data-src="./arirang/14-intothesun.mp3"
+                data-titulo="14 - Into the Sun"
+              >
+                <div class="faixa-esq">
+                  <span class="faixa-num">14</span>
+                  <div>
+                    <strong>Into the Sun</strong>
+                  </div>
+                </div>
+                <span class="faixa-duracao">03:47</span>
+              </li>
+
+              <li
+                class="faixa-item"
+                data-src="./arirang/15-comeover.mp3"
+                data-titulo="15 - Come Over"
+              >
+                <div class="faixa-esq">
+                  <span class="faixa-num">15</span>
+                  <div>
+                    <strong>Come Over</strong>
+                  </div>
+                </div>
+                <span class="faixa-duracao">02:58</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- LETREIRO CONTÍNUO BTS EM CIMA DO FOOTER -->
     <section class="bloco-bts">
-        <div class="letreiro-trilha">
-            <div class="letreiro-conteudo">
-                <span>Kim Namjoon!</span> •
-                <span>Kim Seokjin!</span> •
-                <span>Min Yoongi!</span> •
-                <span>Jung Hoseok!</span> •
-                <span>Park Jimin!</span> •
-                <span>Kim Taehyung!</span> •
-                <span>Jeon Jungkook!</span> •
-                <span class="destaque-bts">BTS!</span> •
-            </div>
-            <div class="letreiro-conteudo" aria-hidden="true">
-                <span>Kim Namjoon!</span> •
-                <span>Kim Seokjin!</span> •
-                <span>Min Yoongi!</span> •
-                <span>Jung Hoseok!</span> •
-                <span>Park Jimin!</span> •
-                <span>Kim Taehyung!</span> •
-                <span>Jeon Jungkook!</span> •
-                <span class="destaque-bts">BTS!</span> •
-            </div>
+      <div class="letreiro-trilha">
+        <div class="letreiro-conteudo">
+          <span>Kim Namjoon!</span> • <span>Kim Seokjin!</span> •
+          <span>Min Yoongi!</span> • <span>Jung Hoseok!</span> •
+          <span>Park Jimin!</span> • <span>Kim Taehyung!</span> •
+          <span>Jeon Jungkook!</span> • <span class="destaque-bts">BTS!</span> •
         </div>
+        <div class="letreiro-conteudo" aria-hidden="true">
+          <span>Kim Namjoon!</span> • <span>Kim Seokjin!</span> •
+          <span>Min Yoongi!</span> • <span>Jung Hoseok!</span> •
+          <span>Park Jimin!</span> • <span>Kim Taehyung!</span> •
+          <span>Jeon Jungkook!</span> • <span class="destaque-bts">BTS!</span> •
+        </div>
+      </div>
     </section>
 
     <!-- RODAPÉ -->
     <footer>
-        <p>&copy; 2026 - Todos os direitos reservados - by Bruno</p>
-        <p>Site dedicado ao BTS e ao ARMY.</p>
+      <p>&copy; 2026 - Todos os direitos reservados - by Bruno</p>
+      <p>Site dedicado ao BTS e ao ARMY.</p>
     </footer>
 
     <script src="script.js"></script>
-</body>
-
+  </body>
 </html>
